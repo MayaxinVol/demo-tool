@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Grid</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/w3.css"/>
+</head>
+
+<body>
+<div class="w3-container" style="overflow: auto; padding: 20px;">
+    <div class="w3-center">
+        <svg id="svg" width="100%" height="650px" class="w3-card" style="background-color: #ffffff;"></svg>
+    </div>
+    <hr class="hrBorder">
+
+<!--/**-->
+<!-- * First Screen-->
+<!--*/-->
+    <div class="inputRowCol">
+        <div class="w3-bar" style="max-width: 1920px">
+            <div class="w3-bar-item">
+                <label for="input_rows">Number of Fields in <a class="underLineTxt">W</a>idth: </label>
+            </div>
+            <div class="w3-bar-item colMargin">
+                <input id="input_rows" type="number" class="w3-input w3-border" min="1" max="99"/>
+                <a>Maximum 99 Fields in Width</a>
+            </div>
+            <div class="w3-bar-item">
+                <label for="input_cols">Number of Fields in <a class="underLineTxt">H</a>eight: </label>
+            </div>
+            <div class="w3-bar-item">
+                <input id="input_cols" type="number" class="w3-input w3-border" min="1" max="99"/>
+                <a>Maximum 99 Fields in Height</a>
+            </div>
+        </div>
+
+        <div class="w3-right btnTop">
+            <div id="ok" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="GenerateOpening()"><a class="underLineTxt">O</a>K</div>
+            <div id="cancel" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black" onclick="cancelSPA()"><a class="underLineTxt">C</a>ancel
+            </div>
+        </div>
+    </div>
+
+<!--/**-->
+<!-- * Second Screen-->
+<!--*/-->
+    <div class="widthChange hide">
+        <div class="w3-row">
+            <div class="w3-bar">
+                <div class="w3-bar-item">
+                    <label for="totalWidth"><a class="underLineTxt">T</a>otal Width: </label>
+                </div>
+                <div class="w3-bar-item totalLeft">
+                    <input id="totalWidth" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled" style="width: 200px"/>
+                </div>
+                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
+
+
+
+                <div class="w3-bar-item">
+                    <input id="totalCheck" type="checkbox" class="totalCheck" checked/>
+                    <label for="totalCheck">Automatic</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="partialWidth">
+            <div class="w3-row w3-bar">
+                <div class="w3-bar-item">
+                    <label for="1th"><a class="underLineTxt">1</a>st Partial Width: </label>
+                </div>
+                <div class="w3-bar-item">
+                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>
+                    <input id="1thCheck" type="checkbox" class="checkBox" checked="checked"/>
+                    <label for="1thCheck">Automatic</label>
+                </div>
+                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
+
+                <div id="widthPer"></div>
+
+            </div>
+        </div>
+
+        <div class="w3-right btnTop">
+            <div id="apply" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="apply()">Apply</div>
+            <div id="reset" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="reset()">Reset</div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--/**-->
+    <!-- * third Screen-->
+    <!--*/-->
+    <div class="heightChange hide">
+        <div class="w3-row">
+            <div class="w3-bar">
+                <div class="w3-bar-item">
+                    <label for="totalHeight"><a class="underLineTxt">T</a>otal Height: </label>
+                </div>
+                <div class="w3-bar-item totalLeft">
+                    <input id="totalHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled" style="width: 200px"/>
+                </div>
+                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
+
+                <div class="w3-bar-item">
+                    <input id="totalHeightCheck" type="checkbox" class="totalCheck" checked/>
+                    <label for="totalHeightCheck">Automatic</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="partialWidth">
+            <div class="w3-row w3-bar">
+                <div class="w3-bar-item">
+                    <label for="1thHeight"><a class="underLineTxt">1</a>st Partial Height: </label>
+                </div>
+                <div class="w3-bar-item">
+                    <input id="1thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>
+                    <input id="1thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>
+                    <label for="1thHeightCheck">Automatic</label>
+                </div>
+                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
+
+                <div id="heightPer"></div>
+
+            </div>
+        </div>
+
+        <div class="w3-right btnTop">
+            <div id="applyHeight" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="applyHeight()">Apply</div>
+            <div id="resetHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="resetHeight()">Reset</div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--/**-->
+<!-- * 4th Screen-->
+<!--*/-->
+    <div class="widthSetDelete hide">
+        <div class="w3-right btnTop">
+            <div id="setDelete" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="setDelete()">Set / Delete</div>
+            <div id="closeWindow" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="closeWindow()">Close</div>
+        </div>
+    </div>
+
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/zepto-1.1.6.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+
+    $("#ok").click(function () {
+        if ((document.getElementById("input_rows").value === '') || (document.getElementById("input_cols").value === ''))
+        {
+            alert("Please fill required parts !!!");
+        }
+        else
+        {
+            flagOk = true;
+            $("div.inputRowCol").addClass('hide');
+            $("div.widthChange").removeClass('hide');
+        }
+
+    });
+
+    /**
+     * Total Width
+     */
+    $("#apply").click(function () {
+        if (flagApplyWidth === true)
+        {
+            $("div.widthChange").addClass('hide');
+            $("div.heightChange").removeClass('hide');
+        }
+    });
+
+    $("#totalCheck").click(function () {
+        if (document.getElementById('totalCheck').checked === false)
+        {
+            $("#totalWidth").prop("disabled", false);
+        }
+        else
+        {
+            $("#totalWidth").prop("disabled", true);
+        }
+    });
+
+    $("#1thCheck").click(function () {
+        if (document.getElementById('1thCheck').checked === false)
+        {
+            $("#1th").prop("disabled", false);
+        }
+        else
+        {
+            $("#1th").prop("disabled", true);
+        }
+    });
+
+    $("#widthPer").click(function () {
+        for (let i = 1; i < cols; i ++)
+        {
+            let str =(i).toString();
+            str = str.concat("th");
+            let strCheck = str.concat("Check");
+            document.getElementById(str).disabled = document.getElementById(strCheck).checked;
+        }
+    });
+
+
+    /**
+     * Total Height
+     */
+    $("#totalHeightCheck").click(function () {
+        if (document.getElementById('totalHeightCheck').checked === false)
+        {
+            $("#totalHeight").prop("disabled", false);
+        }
+        else
+        {
+            $("#totalHeight").prop("disabled", true);
+        }
+    });
+
+    $("#1thHeightCheck").click(function () {
+        if (document.getElementById('1thHeightCheck').checked === false)
+        {
+            $("#1thHeight").prop("disabled", false);
+        }
+        else
+        {
+            $("#1thHeight").prop("disabled", true);
+        }
+    });
+
+    $("#heightPer").click(function () {
+        for (let i = 1; i < rows; i ++)
+        {
+            let str =(i).toString();
+            str = str.concat("thHeight");
+            let strCheck = str.concat("Check");
+            document.getElementById(str).disabled = document.getElementById(strCheck).checked;
+        }
+    });
+
+    $("#applyHeight").click(function () {
+        if (flagApplyHeight === true)
+        {
+            $("div.heightChange").addClass('hide');
+            $("div.widthSetDelete").removeClass('hide');
+        }
+    });
+
+</script>
+</body>
+</html>

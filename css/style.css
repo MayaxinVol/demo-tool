@@ -1,0 +1,51 @@
+body {
+    font-size: 8px;
+    background-color: #ffffff;
+}
+
+.w3-input {
+    padding: 2px !important;
+    /*width: 60px !important;*/
+}
+
+/*.w3-bar, .w3-bar-item {*/
+/*    padding: 4px 16px !important;*/
+/*}*/
+
+hr.hrBorder {
+    border-top: 2px solid black;
+}
+
+.colMargin {
+    margin-right: 100px;
+}
+
+.underLineTxt {
+    text-decoration: underline;
+}
+
+.btnTop {
+    padding-top: 30px;
+}
+
+.btnOKCancel {
+    margin-left: 20px;
+    border: 1px solid black;
+}
+
+.hide {
+    display: none;
+}
+
+.totalLeft {
+    margin-left: 40px;
+}
+
+.totalCheck, .checkBox {
+    width: 15px;
+    height: 15px;
+}
+
+.totalCheck {
+    margin-left: 50px;
+}
