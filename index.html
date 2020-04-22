@@ -19,8 +19,8 @@
 <!--/**-->
 <!-- * First Screen-->
 <!--*/-->
-    <div class="inputRowCol">
-        <div class="w3-bar" style="max-width: 1920px">
+    <div id="inputRowCol" class="inputRowCol" style="top: 700px">
+        <div class="w3-bar" style="">
             <div class="w3-bar-item">
                 <label for="input_rows">Number of Fields in <a class="underLineTxt">W</a>idth: </label>
             </div>
@@ -41,6 +41,7 @@
             <div id="ok" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="GenerateOpening()"><a class="underLineTxt">O</a>K</div>
             <div id="cancel" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black" onclick="cancelSPA()"><a class="underLineTxt">C</a>ancel
             </div>
+            <div id="forwardFirst" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardFirst()">Forward</div>
         </div>
     </div>
 
@@ -87,28 +88,10 @@
         <div class="w3-right btnTop">
             <div id="apply" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="apply()">Apply</div>
             <div id="reset" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="reset()">Reset</div>
+            <div id="backWidth" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backWidth()">Back</div>
+            <div id="forwardWidth" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardWidth()">Forward</div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!--/**-->
     <!-- * third Screen-->
@@ -151,33 +134,10 @@
         <div class="w3-right btnTop">
             <div id="applyHeight" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="applyHeight()">Apply</div>
             <div id="resetHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="resetHeight()">Reset</div>
+            <div id="backHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backHeight()">Back</div>
+            <div id="forwardHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="forwardHeight()">Forward</div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!--/**-->
 <!-- * 4th Screen-->
@@ -186,9 +146,9 @@
         <div class="w3-right btnTop">
             <div id="setDelete" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="setDelete()">Set / Delete</div>
             <div id="closeWindow" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="closeWindow()">Close</div>
+            <div id="backRemove" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backRemove()">Back</div>
         </div>
     </div>
-
 </div>
 
 <script src="js/main.js"></script>
@@ -196,19 +156,23 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script>
-
     $("#ok").click(function () {
         if ((document.getElementById("input_rows").value === '') || (document.getElementById("input_cols").value === ''))
         {
-            alert("Please fill required parts !!!");
+            alert("Please fill required fields !!!");
+            $("div.inputRowCol").removeClass('hide');
         }
-        else
+        else if ((rows <= 100) && (cols <= 100))
         {
             flagOk = true;
             $("div.inputRowCol").addClass('hide');
             $("div.widthChange").removeClass('hide');
         }
-
+        else
+        {
+            $("div.inputRowCol").removeClass('hide');
+            $("div.widthChange").addClass('hide');
+        }
     });
 
     /**
@@ -254,7 +218,6 @@
         }
     });
 
-
     /**
      * Total Height
      */
@@ -297,7 +260,6 @@
             $("div.widthSetDelete").removeClass('hide');
         }
     });
-
 </script>
 </body>
 </html>

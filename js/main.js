@@ -23,11 +23,24 @@ let back_color = "#333333";
 let totalWidth; // total width
 let totalHeight; // total Height
 let flagApplyWidth, flagApplyHeight;
-let svgWidth = 0, svgHeight = 0;
+let svgWidth, svgHeight;
+let removePoints = []; // selected points
+
+const borderThick = 5;
+
+let flagBackWidth = false;
+let flagBackHeight = false;
+let flagBackRemove = false;
 
 function GenerateOpening() {
     cols = Number(document.getElementById("input_rows").value) + 1;
     rows = Number(document.getElementById("input_cols").value) + 1;
+
+    if ((rows > 100) || (cols > 100))
+    {
+        alert("Please input the fields correctly!");
+        return;
+    }
 
     document.getElementById("widthPer").innerHTML = '';
     for (let i = 2; i < cols; i ++)
@@ -161,7 +174,6 @@ function apply() {
             '                </div>\n' +
             '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
     }
-
 }
 
 /**
@@ -177,6 +189,7 @@ function applyHeight() {
         return;
     }
 
+    removePoints = [];
     let totalHeightUpdate = document.getElementById('totalHeight').value/10;
 
     let remainRows = rows - 1;
@@ -236,12 +249,12 @@ function applyHeight() {
             arrp.push({i:i, j:j, cx:cx, cy:cy});
         }
     }
-    console.log(DYInterval);
-    console.log(arrp);
 
     svgHeight = totalHeightUpdate + 100;
-    drawOpening();
     flagApplyHeight = true;
+    drawOpening();
+
+    svgHeight = totalHeight/10 + 100;
 }
 
 /**
@@ -271,18 +284,22 @@ function drawOpening() {
     eleSVG.style.width = svgWidth + DXInit;
     eleSVG.style.height = svgHeight  + DYInit;
     eleSVG.innerHTML = textHtml;
+
+    if(flagApplyHeight === true)
+        eleSVG.addEventListener("click", onClickSVG);
 }
 
 function txtHtmlOfLine(k, kk) {
     let str = "";
     if (k >= 0 && k < arrp.length && kk >= 0 && kk < arrp.length)
-        str = `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="3" style="pointer-events: none;"/>`;
+        str = `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
 
     return { str };
 }
 
 function reset() {
     document.getElementById('totalWidth').value = totalWidth;
+    document.getElementById('totalHeight').value = totalHeight;
     document.getElementById('totalCheck').checked = 'checked';
     document.getElementById('totalWidth').disabled = true;
 
@@ -290,11 +307,9 @@ function reset() {
     document.getElementById('1th').disabled = true;
     document.getElementById('1thCheck').checked = 'checked';
 
+    removePoints = [];
+    arrp = [];
     GenerateOpening();
-}
-
-function setDelete() {
-
 }
 
 function cancelSPA() {
@@ -303,12 +318,15 @@ function cancelSPA() {
 }
 
 function closeWindow() {
+    removePoints = [];
+    flagApplyHeight = false;
+    drawOpening();
     $("div.widthChange").removeClass('hide');
     $("div.widthSetDelete").addClass('hide');
 }
 
-function  resetHeight() {
-
+function resetHeight() {
+    document.getElementById('totalWidth').value = totalWidth;
     document.getElementById('totalHeight').value = totalHeight;
     document.getElementById('totalHeightCheck').checked = 'checked';
     document.getElementById('totalHeight').disabled = true;
@@ -330,7 +348,190 @@ function  resetHeight() {
             '                </div>\n' +
             '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
     }
-    
+
     arrp = arrpLast;
+    removePoints = [];
     drawOpening();
+}
+
+/**
+ * back and forward
+ */
+
+function ForwardFirst() {
+    if (flagBackWidth === true)
+    {
+        $("div.widthChange").removeClass('hide');
+        $("div.inputRowCol").addClass('hide');
+        flagBackWidth = false;
+    }
+}
+
+function backWidth() {
+    flagBackWidth = true;
+    $("div.widthChange").addClass('hide');
+    $("div.inputRowCol").removeClass('hide');
+}
+
+function ForwardWidth() {
+    if (flagBackHeight === true)
+    {
+        $("div.heightChange").removeClass('hide');
+        $("div.widthChange").addClass('hide');
+        flagBackHeight = false;
+    }
+}
+
+function backHeight() {
+    flagBackHeight = true;
+    $("div.heightChange").addClass('hide');
+    $("div.widthChange").removeClass('hide');
+}
+
+function forwardHeight() {
+    if (flagBackRemove === true)
+    {
+        $("div.widthSetDelete").removeClass('hide');
+        $("div.heightChange").addClass('hide');
+        flagBackRemove = false;
+        flagApplyHeight = true;
+    }
+}
+
+function backRemove() {
+    flagBackRemove = true;
+    flagApplyHeight = false;
+    $("div.widthSetDelete").addClass('hide');
+    $("div.heightChange").removeClass('hide');
+}
+
+/**
+ * Catching the mouse event
+ */
+function onClickSVG(evt) {
+    if (flagApplyHeight === false)
+        return;
+    let t = evt;
+    let cx = t.x - $("#svg").offset().left;
+    let cy = t.y - $("#svg").offset().top;
+
+    if ((cx < DXInit) || (cx > DXInit + document.getElementById('totalWidth').value/10) || (cy < DYInit) || (cy > DYInit + document.getElementById('totalHeight').value/10))
+        return;
+
+    /**
+     * getting the positions of the points
+     */
+    let i, j, k;
+    cx -= DXInit;
+    cy -= DYInit;
+
+    for (j = 0; j < cols - 1; j ++)
+    {
+        if ((cx >= 0) && (cx < DXInterval[j + 1]))
+            break;
+        else
+            cx -= DXInterval[j + 1];
+    }
+
+    for (i = 0; i < rows - 1; i ++)
+    {
+        if ((cy >= 0) && (cy < DYInterval[i + 1]))
+            break;
+        else
+            cy -= DYInterval[i + 1];
+    }
+
+
+    k = cols * i + j;
+
+    console.log('k = ', k);
+    /**
+     * display the selected domains
+     */
+    if (removePoints.includes(k) === true)
+    {
+        removePoints.splice(removePoints.indexOf(k), 1);
+        let textHtml = "";
+        textHtml = `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="#ffffff"/>`;
+        let eleSVG = document.getElementById("svg");
+        eleSVG.innerHTML += textHtml;
+    }
+    else
+    {
+        removePoints.push(k);
+        let textHtml = "";
+        textHtml = `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="gray"/>`;
+        let eleSVG = document.getElementById("svg");
+        eleSVG.innerHTML += textHtml;
+    }
+}
+
+function setDelete() {
+    let lengthArray = removePoints.length;
+    let textHtml = "";
+    let k, kStart, kLast;
+
+    for(let m = 0; m < lengthArray; m ++)
+    {
+        k = removePoints[m];
+        let i = Math.floor(k / cols);
+        let j = k - i * cols;
+
+        textHtml += `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="#ffffff"/>`;
+        // removePoints.splice(removePoints.indexOf(k), 1);
+        // removePoints.splice(removePoints.indexOf(removePoints[m]), 1);
+
+        if ((k >= cols) && (removePoints.includes(k - cols) === true))
+        {
+            kStart = k;
+            kLast = k + 1;
+            let tWidth = borderThick/2 - 0.1;
+            textHtml += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+        }
+        if (removePoints.includes(k + 1) === true)
+        {
+            kStart = k + 1;
+            kLast = kStart + cols;
+            let tWidth = borderThick/2 - 0.1;
+            textHtml += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+        }
+
+        if ((k + cols <= lengthArray) && (removePoints.includes(k + cols) === true))
+        {
+            kStart = k + cols;
+            kLast = kStart + 1;
+            let tWidth = borderThick/2 - 0.1;
+            textHtml += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+
+        }
+        if (removePoints.includes(k - 1) === true)
+        {
+            kStart = k;
+            kLast = k + cols;
+            let tWidth = borderThick/2 - 0.1;
+            textHtml += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+        }
+    }
+
+    /**
+     * Removing repeating points
+     * @type {HTMLElement}
+     */
+
+    console.log(removePoints, lengthArray, rows + 2, lengthArray - rows);
+    for(let m = 0; m < lengthArray; m ++)
+    {
+        k = removePoints[m];
+        let i = Math.floor(k / cols);
+        let j = k - i * cols;
+
+        if ((removePoints.includes(k - cols) === true) && (removePoints.includes(k - 1) === true) && (removePoints.includes(k - cols - 1) === true))
+        {
+            console.log('True', k);
+            textHtml += `<rect id="point${k}" x="${arrp[k].cx - borderThick}" y="${arrp[k].cy - borderThick}" width="${borderThick*2}" height="${borderThick*2}" fill="#ffffff"/>`;
+        }
+    }
+
+    let eleSVG = document.getElementById("svg");
+    eleSVG.innerHTML += textHtml;
 }
