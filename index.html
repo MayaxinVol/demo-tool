@@ -11,15 +11,16 @@
 
 <body>
 <div class="w3-container" style="overflow: auto; padding: 20px;">
-    <div class="w3-center">
+    <div id="scrollSectionTop" class="w3-center">
         <svg id="svg" width="100%" height="650px" class="w3-card" style="background-color: #ffffff;"></svg>
     </div>
     <hr class="hrBorder">
 
+    <div id="scrollSectionBottom">
 <!--/**-->
 <!-- * First Screen-->
 <!--*/-->
-    <div id="inputRowCol" class="inputRowCol" style="top: 700px">
+        <div id="inputRowCol" class="inputRowCol" style="top: 700px">
         <div class="w3-bar" style="">
             <div class="w3-bar-item">
                 <label for="input_rows">Number of Fields in <a class="underLineTxt">W</a>idth: </label>
@@ -44,11 +45,10 @@
             <div id="forwardFirst" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardFirst()">Forward</div>
         </div>
     </div>
-
 <!--/**-->
 <!-- * Second Screen-->
 <!--*/-->
-    <div class="widthChange hide">
+        <div class="widthChange hide">
         <div class="w3-row">
             <div class="w3-bar">
                 <div class="w3-bar-item">
@@ -59,8 +59,6 @@
                 </div>
                 <div class="w3-bar-item" style="padding-left: 0;">mm</div>
 
-
-
                 <div class="w3-bar-item">
                     <input id="totalCheck" type="checkbox" class="totalCheck" checked/>
                     <label for="totalCheck">Automatic</label>
@@ -68,20 +66,9 @@
             </div>
         </div>
 
-        <div class="partialWidth">
+        <div class="partialWidth" style=" max-width: 1920px; width: 100%; min-width: 1800px;">
             <div class="w3-row w3-bar">
-                <div class="w3-bar-item">
-                    <label for="1th"><a class="underLineTxt">1</a>st Partial Width: </label>
-                </div>
-                <div class="w3-bar-item">
-                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>
-                    <input id="1thCheck" type="checkbox" class="checkBox" checked="checked"/>
-                    <label for="1thCheck">Automatic</label>
-                </div>
-                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
-
-                <div id="widthPer"></div>
-
+                <div id="widthPer" class="w3-bar"></div>
             </div>
         </div>
 
@@ -96,7 +83,7 @@
     <!--/**-->
     <!-- * third Screen-->
     <!--*/-->
-    <div class="heightChange hide">
+        <div class="heightChange hide">
         <div class="w3-row">
             <div class="w3-bar">
                 <div class="w3-bar-item">
@@ -114,20 +101,9 @@
             </div>
         </div>
 
-        <div class="partialWidth">
+        <div class="partialWidth" style=" max-width: 1920px; width: 100%; min-width: 1800px;">
             <div class="w3-row w3-bar">
-                <div class="w3-bar-item">
-                    <label for="1thHeight"><a class="underLineTxt">1</a>st Partial Height: </label>
-                </div>
-                <div class="w3-bar-item">
-                    <input id="1thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>
-                    <input id="1thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>
-                    <label for="1thHeightCheck">Automatic</label>
-                </div>
-                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
-
-                <div id="heightPer"></div>
-
+                <div id="heightPer" class="w3-bar"></div>
             </div>
         </div>
 
@@ -142,13 +118,21 @@
 <!--/**-->
 <!-- * 4th Screen-->
 <!--*/-->
-    <div class="widthSetDelete hide">
+        <div class="widthSetDelete hide">
         <div class="w3-right btnTop">
             <div id="setDelete" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="setDelete()">Set / Delete</div>
             <div id="closeWindow" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="closeWindow()">Close</div>
             <div id="backRemove" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backRemove()">Back</div>
         </div>
     </div>
+    </div>
+
+        <a href="#scrollSectionTop" class="w3-right w3-btn arrowUpDown scrollPosition1"><img class="upDownSize" src="up-arrow.svg" alt=""></a>
+        <br/><br/>
+        <a href="#scrollSectionBottom" class="w3-right w3-btn arrowUpDown scrollPosition2"><img class="upDownSize" src="down-arrow.svg" alt=""></a>
+
+
+
 </div>
 
 <script src="js/main.js"></script>
@@ -197,17 +181,6 @@
         }
     });
 
-    $("#1thCheck").click(function () {
-        if (document.getElementById('1thCheck').checked === false)
-        {
-            $("#1th").prop("disabled", false);
-        }
-        else
-        {
-            $("#1th").prop("disabled", true);
-        }
-    });
-
     $("#widthPer").click(function () {
         for (let i = 1; i < cols; i ++)
         {
@@ -229,17 +202,6 @@
         else
         {
             $("#totalHeight").prop("disabled", true);
-        }
-    });
-
-    $("#1thHeightCheck").click(function () {
-        if (document.getElementById('1thHeightCheck').checked === false)
-        {
-            $("#1thHeight").prop("disabled", false);
-        }
-        else
-        {
-            $("#1thHeight").prop("disabled", true);
         }
     });
 

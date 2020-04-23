@@ -1,5 +1,9 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-size: 8px;
+    font-size: 12px !important;
     background-color: #ffffff;
 }
 
@@ -7,10 +11,6 @@ body {
     padding: 2px !important;
     /*width: 60px !important;*/
 }
-
-/*.w3-bar, .w3-bar-item {*/
-/*    padding: 4px 16px !important;*/
-/*}*/
 
 hr.hrBorder {
     border-top: 2px solid black;
@@ -38,7 +38,7 @@ hr.hrBorder {
 }
 
 .totalLeft {
-    margin-left: 40px;
+    margin-left: 33px;
 }
 
 .totalCheck, .checkBox {
@@ -48,4 +48,35 @@ hr.hrBorder {
 
 .totalCheck {
     margin-left: 50px;
+}
+
+.arrowUpDown {
+    position: fixed;
+    margin-top: 5px !important;
+    border-radius: 3px;
+
+    opacity: 0.4;
+    color: #000000;
+}
+
+.upDownSize {
+    padding: 0 !important;
+    max-width: 18px;
+    width: 100%;
+}
+
+.w3-btn {
+    padding: 4px 4px !important;
+}
+
+.scrollPosition1 {
+    /*height: 200px; width: 45%;*/
+    top: 200px;
+    left: 50px;
+}
+
+.scrollPosition2 {
+    /*height: 200px; width: 45%;*/
+    top: 250px;
+    left: 50px;
 }

@@ -45,17 +45,64 @@ function GenerateOpening() {
     }
 
     document.getElementById("widthPer").innerHTML = '';
-    for (let i = 2; i < cols; i ++)
+    for (let i = 1; i < cols; i ++)
     {
-        document.getElementById("widthPer").innerHTML += '                <div class="w3-bar-item">\n' +
-            '                    <label for="' + i + 'th"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
-            '                </div>\n' +
-            '                <div class="w3-bar-item">\n' +
-            '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
-            '                    <input id="' + i + 'thCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
-            '                    <label for="' + i + 'thCheck">Automatic</label>\n' +
-            '                </div>\n' +
-            '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        if ((i % 8 === 1) )
+            document.getElementById("widthPer").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
+        if (i === 1)
+            document.getElementById("widthPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="1th"><a class="underLineTxt">1</a>st Partial Width: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                '                    <input id="1thCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                '                    <label for="1thCheck">Automatic</label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        else if((i !== 1) && (i % 8 === 1))
+            if (i === 9)
+                document.getElementById("widthPer").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+                    '                    <label for="' + i + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("widthPer").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+                    '                    <label for="' + i + 'th"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        else
+            if (i < 10)
+                document.getElementById("widthPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="' + i + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                '                    <input id="' + i + 'thCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                '                    <label for="' + i + 'thCheck">Automatic</label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("widthPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                    '                    <label for="' + i + 'th"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+
+
     }
 
     if (cols < 12)
@@ -164,17 +211,64 @@ function apply() {
     flagApplyWidth = true;
 
     document.getElementById("heightPer").innerHTML = '';
-    for (let i = 2; i < rows; i ++)
+    for (let i = 1; i < rows; i ++)
     {
-        document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
-            '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
-            '                </div>\n' +
-            '                <div class="w3-bar-item">\n' +
-            '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
-            '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
-            '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
-            '                </div>\n' +
-            '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        if (i % 8 === 1)
+            document.getElementById("heightPer").innerHTML += '</div><div class="w3-bar" style="padding-left: 100px !important;">';
+        if (i === 1)
+            document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="1thHeight"><a class="underLineTxt">1</a>st Partial Height: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="1thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                '                    <input id="1thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                '                    <label for="1thHeightCheck">Automatic</label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+
+        else if((i !== 1) && (i % 8 === 1))
+            if (i === 9)
+                document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item" style="padding-left: 100px !important;">\n' +
+                    '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item" style="padding-left: 100px !important;">\n' +
+                    '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+
+        else
+            if (i < 10)
+                document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                    '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                    '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
     }
 }
 
@@ -306,10 +400,6 @@ function reset() {
     document.getElementById('totalCheck').checked = 'checked';
     document.getElementById('totalWidth').disabled = true;
 
-    document.getElementById('1th').value = '';
-    document.getElementById('1th').disabled = true;
-    document.getElementById('1thCheck').checked = 'checked';
-
     removePoints = [];
     arrp = [];
     GenerateOpening();
@@ -334,22 +424,65 @@ function resetHeight() {
     document.getElementById('totalHeightCheck').checked = 'checked';
     document.getElementById('totalHeight').disabled = true;
 
-    document.getElementById('1thHeight').value = '';
-    document.getElementById('1thHeight').disabled = true;
-    document.getElementById('1thHeightCheck').checked = 'checked';
-
     document.getElementById("heightPer").innerHTML = '';
-    for (let i = 2; i < rows; i ++)
+    for (let i = 1; i < rows; i ++)
     {
-        document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
-            '                    <label for="' + i + 'th"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
-            '                </div>\n' +
-            '                <div class="w3-bar-item">\n' +
-            '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
-            '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
-            '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
-            '                </div>\n' +
-            '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        if (i % 8 === 1)
+            document.getElementById("heightPer").innerHTML += '</div><div class="w3-bar" style="padding-left: 100px !important;">';
+        if (i === 1)
+            document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="1thHeight"><a class="underLineTxt">1</a>st Partial Height: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="1thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                '                    <input id="1thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                '                    <label for="1thHeightCheck">Automatic</label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+
+        else if((i !== 1) && (i % 8 === 1))
+            if (i === 9)
+                document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item" style="padding-left: 100px !important;">\n' +
+                    '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item" style="padding-left: 100px !important;">\n' +
+                    '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                    '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                    '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+
+        else
+        if (i < 10)
+            document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        else
+            document.getElementById("heightPer").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="' + i + 'thHeight"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + i + 'thHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled"/>\n' +
+                '                    <input id="' + i + 'thHeightCheck" type="checkbox" class="checkBox" checked="checked"/>\n' +
+                '                    <label for="' + i + 'thHeightCheck">Automatic</label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
     }
 
     arrp = arrpLast;
@@ -414,8 +547,16 @@ function onClickSVG(evt) {
     if (flagApplyHeight === false)
         return;
     let t = evt;
+    let sx=scrollX;
+    let sy=scrollY;
+
     let cx = t.x - $("#svg").offset().left;
-    let cy = t.y - $("#svg").offset().top;
+    let cy = t.y - $("#svg").offset().top + scrollY;
+
+
+
+    console.log("scroll-x = ", sx);
+    console.log("scroll-y = ", sy);
 
     if ((cx < DXInit) || (cx > DXInit + document.getElementById('totalWidth').value/10) || (cy < DYInit) || (cy > DYInit + document.getElementById('totalHeight').value/10))
         return;
