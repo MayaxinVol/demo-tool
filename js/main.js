@@ -25,6 +25,8 @@ let totalHeight; // total Height
 let flagApplyWidth, flagApplyHeight;
 let svgWidth, svgHeight;
 let removePoints = []; // selected points
+let removedPoints = [];
+let recoverPoints = [];
 
 const borderThick = 5;
 
@@ -252,6 +254,7 @@ function applyHeight() {
 
     svgHeight = totalHeightUpdate + 100;
     flagApplyHeight = true;
+    removedPoints = [];
     drawOpening();
 
     svgHeight = totalHeight/10 + 100;
@@ -357,7 +360,6 @@ function resetHeight() {
 /**
  * back and forward
  */
-
 function ForwardFirst() {
     if (flagBackWidth === true)
     {
@@ -441,18 +443,35 @@ function onClickSVG(evt) {
             cy -= DYInterval[i + 1];
     }
 
-
     k = cols * i + j;
-
-    console.log('k = ', k);
     /**
      * display the selected domains
      */
-    if (removePoints.includes(k) === true)
+    if (removedPoints.includes(k) === true)
+    {
+        if (recoverPoints.includes(k) === true)
+        {
+            recoverPoints.splice(recoverPoints.indexOf(k), 1);
+            let textHtml = "";
+            textHtml = `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="white"/>`;
+            let eleSVG = document.getElementById("svg");
+            eleSVG.innerHTML += textHtml;
+        }
+        else
+        {
+            recoverPoints.push(k);
+            let textHtml = "";
+            textHtml = `<rect id="point${k}" x="${arrp[k].cx + borderThick}" y="${arrp[k].cy + borderThick}" width="${DXInterval[j+1] - borderThick * 2}" height="${DYInterval[i+1] - borderThick * 2}" fill="#426271"/>`;
+            let eleSVG = document.getElementById("svg");
+            eleSVG.innerHTML += textHtml;
+        }
+
+    }
+    else if (removePoints.includes(k) === true)
     {
         removePoints.splice(removePoints.indexOf(k), 1);
         let textHtml = "";
-        textHtml = `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="#ffffff"/>`;
+        textHtml = `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="white"/>`;
         let eleSVG = document.getElementById("svg");
         eleSVG.innerHTML += textHtml;
     }
@@ -478,8 +497,6 @@ function setDelete() {
         let j = k - i * cols;
 
         textHtml += `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="#ffffff"/>`;
-        // removePoints.splice(removePoints.indexOf(k), 1);
-        // removePoints.splice(removePoints.indexOf(removePoints[m]), 1);
 
         if ((k >= cols) && (removePoints.includes(k - cols) === true))
         {
@@ -487,6 +504,11 @@ function setDelete() {
             kLast = k + 1;
             let tWidth = borderThick/2 - 0.1;
             textHtml += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+
+            if(removedPoints.includes(k) === false)
+                removedPoints.push(k);
+            if(removedPoints.includes(k - cols) === false)
+                removedPoints.push(k - cols);
         }
         if (removePoints.includes(k + 1) === true)
         {
@@ -494,6 +516,11 @@ function setDelete() {
             kLast = kStart + cols;
             let tWidth = borderThick/2 - 0.1;
             textHtml += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+
+            if(removedPoints.includes(k) === false)
+                removedPoints.push(k);
+            if(removedPoints.includes(k + 1) === false)
+                removedPoints.push(k + 1);
         }
 
         if ((k + cols <= lengthArray) && (removePoints.includes(k + cols) === true))
@@ -503,13 +530,23 @@ function setDelete() {
             let tWidth = borderThick/2 - 0.1;
             textHtml += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
 
+            if(removedPoints.includes(k) === false)
+                removedPoints.push(k);
+            if(removedPoints.includes(k + cols) === false)
+                removedPoints.push(k + cols);
         }
+
         if (removePoints.includes(k - 1) === true)
         {
             kStart = k;
             kLast = k + cols;
             let tWidth = borderThick/2 - 0.1;
             textHtml += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+
+            if(removedPoints.includes(kStart) === false)
+                removedPoints.push(kStart);
+            if(removedPoints.includes(k - 1) === false)
+                removedPoints.push(k - 1);
         }
     }
 
@@ -517,8 +554,6 @@ function setDelete() {
      * Removing repeating points
      * @type {HTMLElement}
      */
-
-    console.log(removePoints, lengthArray, rows + 2, lengthArray - rows);
     for(let m = 0; m < lengthArray; m ++)
     {
         k = removePoints[m];
@@ -527,11 +562,43 @@ function setDelete() {
 
         if ((removePoints.includes(k - cols) === true) && (removePoints.includes(k - 1) === true) && (removePoints.includes(k - cols - 1) === true))
         {
-            console.log('True', k);
             textHtml += `<rect id="point${k}" x="${arrp[k].cx - borderThick}" y="${arrp[k].cy - borderThick}" width="${borderThick*2}" height="${borderThick*2}" fill="#ffffff"/>`;
         }
     }
 
+    removePoints = [];
+    for(let m = 0; m < removedPoints.length; m ++)
+        removePoints.push(removedPoints[m]);
+
+    /**
+     * Recovering opening
+     * @type {HTMLElement}
+     */
+    for (let m = 0; m < recoverPoints.length; m ++)
+    {
+        k = recoverPoints[m];
+        let kk = k + 1;
+        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+
+        kk = k + cols;
+        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+
+        k = k + cols;
+        kk = k + 1;
+        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+
+        k = k - cols + 1;
+        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+
+        removePoints.splice(removePoints.indexOf(recoverPoints[m]), 1);
+        removedPoints.splice(removedPoints.indexOf(recoverPoints[m]), 1);
+    }
+
+    recoverPoints = [];
+
+    console.log(removePoints);
+    console.log(removedPoints);
+    console.log(removedPoints.length);
     let eleSVG = document.getElementById("svg");
     eleSVG.innerHTML += textHtml;
 }
