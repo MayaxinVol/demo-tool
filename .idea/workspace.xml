@@ -45,7 +45,7 @@
       <workItem from="1586391022847" duration="38735000" />
       <workItem from="1587361794330" duration="119135000" />
       <workItem from="1587603488006" duration="17066000" />
-      <workItem from="1587687528906" duration="11249000" />
+      <workItem from="1587687528906" duration="24552000" />
     </task>
     <servers />
   </component>
@@ -53,10 +53,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="873" y="240" width="962" height="596" key="find.popup" timestamp="1587698846989">
+    <state x="345" y="240" width="1490" height="596" key="find.popup" timestamp="1587716326844">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="873" y="240" width="962" height="596" key="find.popup/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1587698846989" />
+    <state x="345" y="240" width="1490" height="596" key="find.popup/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1587716326844" />
     <state x="2793" y="240" width="737" height="596" key="find.popup/0.0.1920.1050/1920.0.1920.1050@1920.0.1920.1050" timestamp="1587443064382" />
   </component>
 </project>

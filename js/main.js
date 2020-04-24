@@ -39,7 +39,7 @@ let flagAddThickBack = false;
 let textHtmlRoof = "";
 let svgInit = "";
 
-let flagRoof = 0;
+let flagRoof = 0, flagSvgInit = 0;
 
 function GenerateOpening() {
     cols = Number(document.getElementById("input_rows").value) + 1;
@@ -216,6 +216,7 @@ function apply() {
 
     arrpLast = arrp;
     flagApplyWidth = true;
+    textHtmlRoof = "";
 
     document.getElementById("heightPer").innerHTML = '';
     for (let i = 1; i < rows; i ++)
@@ -356,6 +357,8 @@ function applyHeight() {
     svgHeight = totalHeightUpdate + 100;
     flagApplyHeight = true;
     removedPoints = [];
+    textHtmlRoof = "";
+
     drawOpening();
 
     svgHeight = totalHeight/10 + 100;
@@ -389,7 +392,7 @@ function drawOpening() {
     eleSVG.style.height = svgHeight  + DYInit;
     eleSVG.innerHTML = textHtml;
 
-
+    svgInit = eleSVG.innerHTML;
     if(flagApplyHeight === true)
     {
         eleSVG.addEventListener("click", onClickSVG);
@@ -412,6 +415,10 @@ function reset() {
 
     removePoints = [];
     arrp = [];
+    textHtmlRoof = "";
+    svgInit = "";
+    flagRoof = 0;
+
     GenerateOpening();
 }
 
@@ -497,6 +504,9 @@ function resetHeight() {
 
     arrp = arrpLast;
     removePoints = [];
+    textHtmlRoof = "";
+    svgInit = "";
+    flagRoof = 0;
     drawOpening();
 }
 
@@ -638,7 +648,7 @@ function onClickSVG(evt) {
 
 function setDelete() {
     let lengthArray = removePoints.length;
-    let textHtml = "";
+    let textHtmlSetDelete = "";
     let k, kStart, kLast;
 
     for(let m = 0; m < lengthArray; m ++)
@@ -647,14 +657,14 @@ function setDelete() {
         let i = Math.floor(k / cols);
         let j = k - i * cols;
 
-        textHtml += `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="#ffffff"/>`;
+        textHtmlSetDelete += `<rect id="point${k}" x="${arrp[k].cx + borderThick/2}" y="${arrp[k].cy + borderThick/2}" width="${DXInterval[j+1] - borderThick}" height="${DYInterval[i+1] - borderThick}" fill="#ffffff"/>`;
 
         if ((k >= cols) && (removePoints.includes(k - cols) === true))
         {
             kStart = k;
             kLast = k + 1;
             let tWidth = borderThick/2 - 0.1;
-            textHtml += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+            textHtmlSetDelete += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
 
             if(removedPoints.includes(k) === false)
                 removedPoints.push(k);
@@ -666,7 +676,7 @@ function setDelete() {
             kStart = k + 1;
             kLast = kStart + cols;
             let tWidth = borderThick/2 - 0.1;
-            textHtml += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+            textHtmlSetDelete += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
 
             if(removedPoints.includes(k) === false)
                 removedPoints.push(k);
@@ -679,7 +689,7 @@ function setDelete() {
             kStart = k + cols;
             kLast = kStart + 1;
             let tWidth = borderThick/2 - 0.1;
-            textHtml += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+            textHtmlSetDelete += `<line x1="${arrp[kStart].cx + tWidth}" y1="${arrp[kStart].cy}" x2="${arrp[kLast].cx - tWidth}" y2="${arrp[kLast].cy}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
 
             if(removedPoints.includes(k) === false)
                 removedPoints.push(k);
@@ -692,7 +702,7 @@ function setDelete() {
             kStart = k;
             kLast = k + cols;
             let tWidth = borderThick/2 - 0.1;
-            textHtml += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
+            textHtmlSetDelete += `<line x1="${arrp[kStart].cx}" y1="${arrp[kStart].cy + tWidth}" x2="${arrp[kLast].cx}" y2="${arrp[kLast].cy - tWidth}" stroke = "white" stroke-width="${borderThick + 2}" style="pointer-events: none;"/>`;
 
             if(removedPoints.includes(kStart) === false)
                 removedPoints.push(kStart);
@@ -713,7 +723,7 @@ function setDelete() {
 
         if ((removePoints.includes(k - cols) === true) && (removePoints.includes(k - 1) === true) && (removePoints.includes(k - cols - 1) === true))
         {
-            textHtml += `<rect id="point${k}" x="${arrp[k].cx - borderThick}" y="${arrp[k].cy - borderThick}" width="${borderThick*2}" height="${borderThick*2}" fill="#ffffff"/>`;
+            textHtmlSetDelete += `<rect id="point${k}" x="${arrp[k].cx - borderThick}" y="${arrp[k].cy - borderThick}" width="${borderThick*2}" height="${borderThick*2}" fill="#ffffff"/>`;
         }
     }
 
@@ -729,31 +739,35 @@ function setDelete() {
     {
         k = recoverPoints[m];
         let kk = k + 1;
-        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        textHtmlSetDelete += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
 
         kk = k + cols;
-        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        textHtmlSetDelete += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
 
         k = k + cols;
         kk = k + 1;
-        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        textHtmlSetDelete += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
 
         k = k - cols + 1;
-        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        textHtmlSetDelete += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
 
         removePoints.splice(removePoints.indexOf(recoverPoints[m]), 1);
         removedPoints.splice(removedPoints.indexOf(recoverPoints[m]), 1);
     }
 
+    if(flagRoof !== 0)
+    {
+        textHtmlSetDelete += textHtmlRoof;
+    }
+
     recoverPoints = [];
 
-    console.log(removePoints);
-    console.log(removedPoints);
-    console.log(removedPoints.length);
     let eleSVG = document.getElementById("svg");
 
-    eleSVG.innerHTML += textHtml;
+    eleSVG.innerHTML += textHtmlSetDelete;
+    svgInit = eleSVG.innerHTML;
 
+    redrawLineUpdating();
     // if (flagAddThickBack === false)
     //     svgInit = eleSVG.innerHTML;
 }
@@ -790,16 +804,20 @@ function Add() {
     let addPositionY = DYInit + document.getElementById('totalHeight').value/10 - document.getElementById("addHeight").value/10;
     let addPositionX = DXInit - 10;
 
-
     textHtmlRoof += `<rect id="points${addRoof}" x="${addPositionX}" y="${addPositionY}" width="${addWidth}" height="${addHeight}" fill="#dddddd"/>`;
     let eleSVG = document.getElementById("svg");
 
     if (flagRoof === 0)
         svgInit = eleSVG.innerHTML;
+    // if ((flagRoof !== 0) && (flagApplyHeight === true) && (flagSvgInit === 0))
+    //     svgInit = eleSVG.innerHTML;
 
     eleSVG.innerHTML += textHtmlRoof;
 
+    redrawLineUpdating();
+
     flagRoof += 1;
+    flagSvgInit += 1;
 }
 
 function AddCancel() {
@@ -807,4 +825,50 @@ function AddCancel() {
     if (flagRoof !== 0)
         document.getElementById("svg").innerHTML = svgInit;
     flagRoof = 0;
+    flagSvgInit = 0;
+    redrawLineUpdating();
+}
+
+function redrawLineUpdating() {
+    let textHtml = '';
+
+    for(let i = 0; i < cols - 1; i ++)
+    {
+        for(let j = 0; j < rows - 1; j ++)
+        {
+            k = j * cols + i;
+
+            if((removedPoints.includes(k) === true) && (removedPoints.includes(k - cols) === true))
+            {
+                continue;
+            }
+
+            textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[k + 1].cx}" y2="${arrp[k + 1].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        }
+    }
+
+    for(let i = 0; i < cols - 1; i ++)
+    {
+        for(let j = 0; j < rows - 1; j ++)
+        {
+            k = j * cols + i;
+
+            if((removedPoints.includes(k) === true) && (removedPoints.includes(k - 1) === true) && (k % cols !== 0))
+            {
+                continue;
+            }
+
+            textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[k + cols].cx}" y2="${arrp[k + cols].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        }
+    }
+
+    for(let j = 1; j < rows; j ++)
+    {
+        k = j * cols - 1;
+        textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[k + cols].cx}" y2="${arrp[k + cols].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+    }
+
+    let eleSVG = document.getElementById("svg");
+
+    eleSVG.innerHTML += textHtml;
 }
