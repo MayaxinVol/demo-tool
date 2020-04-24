@@ -6,7 +6,6 @@ let rows = 0;
 let cols = 0;
 let dirs = 50;
 
-let unitMm = 3.7795275591;// 1mm = 3.7795275591px;
 let DX, DY;
 let DXInterval = [];
 let DYInterval = [];
@@ -38,10 +37,12 @@ let flagAddThick = false;
 let flagAddThickBack = false;
 let textHtmlRoof = "";
 let svgInit = "";
-
+let a = document.createElement('a');
 let flagRoof = 0, flagSvgInit = 0;
+let flagSubmit = 0;
 
 function GenerateOpening() {
+    flagSubmit = 0;
     cols = Number(document.getElementById("input_rows").value) + 1;
     rows = Number(document.getElementById("input_cols").value) + 1;
 
@@ -108,8 +109,6 @@ function GenerateOpening() {
                     '                    <label for="' + i + 'thCheck">Automatic</label>\n' +
                     '                </div>\n' +
                     '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
-
-
     }
 
     if (cols < 12)
@@ -768,8 +767,6 @@ function setDelete() {
     svgInit = eleSVG.innerHTML;
 
     redrawLineUpdating();
-    // if (flagAddThickBack === false)
-    //     svgInit = eleSVG.innerHTML;
 }
 
 
@@ -784,7 +781,6 @@ function addThick() {
 }
 
 function Add() {
-
     if (Number(document.getElementById("addThickness").value) > Number(document.getElementById("addHeight").value))
     {
         alert("Please Input Correct Values !!!");
@@ -809,10 +805,10 @@ function Add() {
 
     if (flagRoof === 0)
         svgInit = eleSVG.innerHTML;
-    // if ((flagRoof !== 0) && (flagApplyHeight === true) && (flagSvgInit === 0))
-    //     svgInit = eleSVG.innerHTML;
 
     eleSVG.innerHTML += textHtmlRoof;
+
+    console.log(eleSVG);
 
     redrawLineUpdating();
 
@@ -871,4 +867,22 @@ function redrawLineUpdating() {
     let eleSVG = document.getElementById("svg");
 
     eleSVG.innerHTML += textHtml;
+}
+
+function svgSubmit() {
+    flagSubmit += 1;
+    let eleSVG = document.getElementById("svg");
+    let svgContainer = document.createElementNS("http://www.w3.org/1999/xlink", "svg");
+    svgContainer.append(eleSVG);
+    let svgData = svgContainer.outerHTML;
+    a.href = 'data:image/svg+xml; charset=utf8, ' + encodeURIComponent(svgData);
+    a.download = 'finalSVG.svg';
+    a.innerHTML = 'download ' + flagSubmit.toString();
+    document.getElementById("submitImg").appendChild(a);
+
+    document.getElementById("scrollSectionTop").innerHTML +=  '<div class="w3-center"><svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100%" height="650px" class="w3-card" style="background-color: #ffffff;"></svg></div>';
+    let eleSVGLast = document.getElementById("svg");
+    eleSVGLast.style.width = svgWidth + DXInit;
+    eleSVGLast.style.height = svgHeight  + DYInit;
+    eleSVGLast.innerHTML += eleSVG.innerHTML;
 }
