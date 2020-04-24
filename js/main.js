@@ -33,6 +33,13 @@ const borderThick = 5;
 let flagBackWidth = false;
 let flagBackHeight = false;
 let flagBackRemove = false;
+let addRoof = 0;
+let flagAddThick = false;
+let flagAddThickBack = false;
+let textHtmlRoof = "";
+let svgInit = "";
+
+let flagRoof = 0;
 
 function GenerateOpening() {
     cols = Number(document.getElementById("input_rows").value) + 1;
@@ -382,8 +389,11 @@ function drawOpening() {
     eleSVG.style.height = svgHeight  + DYInit;
     eleSVG.innerHTML = textHtml;
 
+
     if(flagApplyHeight === true)
+    {
         eleSVG.addEventListener("click", onClickSVG);
+    }
 }
 
 function txtHtmlOfLine(k, kk) {
@@ -540,23 +550,23 @@ function backRemove() {
     $("div.heightChange").removeClass('hide');
 }
 
+function backThickHeight() {
+    flagAddThick = false;
+    flagAddThickBack = true;
+    $("div.widthSetDelete").removeClass('hide');
+    $("div.heightThick").addClass('hide');
+}
+
 /**
  * Catching the mouse event
  */
 function onClickSVG(evt) {
-    if (flagApplyHeight === false)
+    if ((flagApplyHeight === false) || (flagAddThick === true))
         return;
     let t = evt;
-    let sx=scrollX;
-    let sy=scrollY;
 
     let cx = t.x - $("#svg").offset().left;
     let cy = t.y - $("#svg").offset().top + scrollY;
-
-
-
-    console.log("scroll-x = ", sx);
-    console.log("scroll-y = ", sy);
 
     if ((cx < DXInit) || (cx > DXInit + document.getElementById('totalWidth').value/10) || (cy < DYInit) || (cy > DYInit + document.getElementById('totalHeight').value/10))
         return;
@@ -741,5 +751,60 @@ function setDelete() {
     console.log(removedPoints);
     console.log(removedPoints.length);
     let eleSVG = document.getElementById("svg");
+
     eleSVG.innerHTML += textHtml;
+
+    // if (flagAddThickBack === false)
+    //     svgInit = eleSVG.innerHTML;
+}
+
+
+/**
+ * Adding Height and Thickness
+ */
+
+function addThick() {
+    flagAddThick = true;
+    $("div.widthSetDelete").addClass('hide');
+    $("div.heightThick").removeClass('hide');
+}
+
+function Add() {
+
+    if (Number(document.getElementById("addThickness").value) > Number(document.getElementById("addHeight").value))
+    {
+        alert("Please Input Correct Values !!!");
+        return;
+    }
+
+    if (Number(document.getElementById("addHeight").value) > Number(document.getElementById('totalHeight').value))
+    {
+        alert("Please Input Correct Values !!!");
+        return;
+    }
+
+    addRoof += 1;
+    let addHeight = document.getElementById("addThickness").value/10;
+    let addWidth = document.getElementById('totalWidth').value/10 + 20;
+
+    let addPositionY = DYInit + document.getElementById('totalHeight').value/10 - document.getElementById("addHeight").value/10;
+    let addPositionX = DXInit - 10;
+
+
+    textHtmlRoof += `<rect id="points${addRoof}" x="${addPositionX}" y="${addPositionY}" width="${addWidth}" height="${addHeight}" fill="#dddddd"/>`;
+    let eleSVG = document.getElementById("svg");
+
+    if (flagRoof === 0)
+        svgInit = eleSVG.innerHTML;
+
+    eleSVG.innerHTML += textHtmlRoof;
+
+    flagRoof += 1;
+}
+
+function AddCancel() {
+    textHtmlRoof = "";
+    if (flagRoof !== 0)
+        document.getElementById("svg").innerHTML = svgInit;
+    flagRoof = 0;
 }

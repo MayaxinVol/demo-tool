@@ -21,110 +21,129 @@
 <!-- * First Screen-->
 <!--*/-->
         <div id="inputRowCol" class="inputRowCol" style="top: 700px">
-        <div class="w3-bar" style="">
-            <div class="w3-bar-item">
-                <label for="input_rows">Number of Fields in <a class="underLineTxt">W</a>idth: </label>
+            <div class="w3-bar" style="">
+                <div class="w3-bar-item">
+                    <label for="input_rows">Number of Fields in <a class="underLineTxt">W</a>idth: </label>
+                </div>
+                <div class="w3-bar-item colMargin">
+                    <input id="input_rows" type="number" class="w3-input w3-border" min="1" max="99"/>
+                    <a>Maximum 99 Fields in Width</a>
+                </div>
+                <div class="w3-bar-item">
+                    <label for="input_cols">Number of Fields in <a class="underLineTxt">H</a>eight: </label>
+                </div>
+                <div class="w3-bar-item">
+                    <input id="input_cols" type="number" class="w3-input w3-border" min="1" max="99"/>
+                    <a>Maximum 99 Fields in Height</a>
+                </div>
             </div>
-            <div class="w3-bar-item colMargin">
-                <input id="input_rows" type="number" class="w3-input w3-border" min="1" max="99"/>
-                <a>Maximum 99 Fields in Width</a>
-            </div>
-            <div class="w3-bar-item">
-                <label for="input_cols">Number of Fields in <a class="underLineTxt">H</a>eight: </label>
-            </div>
-            <div class="w3-bar-item">
-                <input id="input_cols" type="number" class="w3-input w3-border" min="1" max="99"/>
-                <a>Maximum 99 Fields in Height</a>
-            </div>
-        </div>
 
-        <div class="w3-right btnTop">
-            <div id="ok" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="GenerateOpening()"><a class="underLineTxt">O</a>K</div>
-            <div id="cancel" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black" onclick="cancelSPA()"><a class="underLineTxt">C</a>ancel
+            <div class="w3-right btnTop">
+                <div id="ok" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="GenerateOpening()"><a class="underLineTxt">O</a>K</div>
+                <div id="cancel" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black" onclick="cancelSPA()"><a class="underLineTxt">C</a>ancel
+                </div>
+                <div id="forwardFirst" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardFirst()">Forward</div>
             </div>
-            <div id="forwardFirst" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardFirst()">Forward</div>
         </div>
-    </div>
 <!--/**-->
 <!-- * Second Screen-->
 <!--*/-->
         <div class="widthChange hide">
-        <div class="w3-row">
-            <div class="w3-bar">
-                <div class="w3-bar-item">
-                    <label for="totalWidth"><a class="underLineTxt">T</a>otal Width: </label>
-                </div>
-                <div class="w3-bar-item totalLeft">
-                    <input id="totalWidth" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled" style="width: 200px"/>
-                </div>
-                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
+            <div class="w3-row">
+                <div class="w3-bar">
+                    <div class="w3-bar-item">
+                        <label for="totalWidth"><a class="underLineTxt">T</a>otal Width: </label>
+                    </div>
+                    <div class="w3-bar-item totalLeft">
+                        <input id="totalWidth" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled" style="width: 200px"/>
+                    </div>
+                    <div class="w3-bar-item" style="padding-left: 0;">mm</div>
 
-                <div class="w3-bar-item">
-                    <input id="totalCheck" type="checkbox" class="totalCheck" checked/>
-                    <label for="totalCheck">Automatic</label>
+                    <div class="w3-bar-item">
+                        <input id="totalCheck" type="checkbox" class="totalCheck" checked/>
+                        <label for="totalCheck">Automatic</label>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="partialWidth" style=" max-width: 1920px; width: 100%; min-width: 1800px;">
-            <div class="w3-row w3-bar">
-                <div id="widthPer" class="w3-bar"></div>
+            <div class="partialWidth" style=" max-width: 1920px; width: 100%; min-width: 1800px;">
+                <div class="w3-row w3-bar">
+                    <div id="widthPer" class="w3-bar"></div>
+                </div>
+            </div>
+
+            <div class="w3-right btnTop">
+                <div id="apply" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="apply()">Apply</div>
+                <div id="reset" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="reset()">Reset</div>
+                <div id="backWidth" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backWidth()">Back</div>
+                <div id="forwardWidth" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardWidth()">Forward</div>
             </div>
         </div>
-
-        <div class="w3-right btnTop">
-            <div id="apply" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="apply()">Apply</div>
-            <div id="reset" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="reset()">Reset</div>
-            <div id="backWidth" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backWidth()">Back</div>
-            <div id="forwardWidth" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="ForwardWidth()">Forward</div>
-        </div>
-    </div>
 
     <!--/**-->
     <!-- * third Screen-->
     <!--*/-->
         <div class="heightChange hide">
-        <div class="w3-row">
-            <div class="w3-bar">
-                <div class="w3-bar-item">
-                    <label for="totalHeight"><a class="underLineTxt">T</a>otal Height: </label>
-                </div>
-                <div class="w3-bar-item totalLeft">
-                    <input id="totalHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled" style="width: 200px"/>
-                </div>
-                <div class="w3-bar-item" style="padding-left: 0;">mm</div>
+            <div class="w3-row">
+                <div class="w3-bar">
+                    <div class="w3-bar-item">
+                        <label for="totalHeight"><a class="underLineTxt">T</a>otal Height: </label>
+                    </div>
+                    <div class="w3-bar-item totalLeft">
+                        <input id="totalHeight" type="number" class="w3-input w3-border" min="1" max="99999" disabled="disabled" style="width: 200px"/>
+                    </div>
+                    <div class="w3-bar-item" style="padding-left: 0;">mm</div>
 
-                <div class="w3-bar-item">
-                    <input id="totalHeightCheck" type="checkbox" class="totalCheck" checked/>
-                    <label for="totalHeightCheck">Automatic</label>
+                    <div class="w3-bar-item">
+                        <input id="totalHeightCheck" type="checkbox" class="totalCheck" checked/>
+                        <label for="totalHeightCheck">Automatic</label>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="partialWidth" style=" max-width: 1920px; width: 100%; min-width: 1800px;">
-            <div class="w3-row w3-bar">
-                <div id="heightPer" class="w3-bar"></div>
+            <div class="partialWidth" style=" max-width: 1920px; width: 100%; min-width: 1800px;">
+                <div class="w3-row w3-bar">
+                    <div id="heightPer" class="w3-bar"></div>
+                </div>
+            </div>
+
+            <div class="w3-right btnTop">
+                <div id="applyHeight" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="applyHeight()">Apply</div>
+                <div id="resetHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="resetHeight()">Reset</div>
+                <div id="backHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backHeight()">Back</div>
+                <div id="forwardHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="forwardHeight()">Forward</div>
             </div>
         </div>
-
-        <div class="w3-right btnTop">
-            <div id="applyHeight" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="applyHeight()">Apply</div>
-            <div id="resetHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="resetHeight()">Reset</div>
-            <div id="backHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backHeight()">Back</div>
-            <div id="forwardHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="forwardHeight()">Forward</div>
-        </div>
-    </div>
 
 <!--/**-->
 <!-- * 4th Screen-->
 <!--*/-->
-        <div class="widthSetDelete hide">
-        <div class="w3-right btnTop">
-            <div id="setDelete" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="setDelete()">Set / Delete</div>
-            <div id="closeWindow" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="closeWindow()">Close</div>
-            <div id="backRemove" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backRemove()">Back</div>
+        <div id="widthHeightSetDelete" class="widthSetDelete hide">
+            <div class="w3-right btnTop">
+                <div id="setDelete" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="setDelete()">Set / Delete</div>
+                <div id="addHeightThick" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black" onclick="addThick()">Height/Thick</div>
+                <div id="closeWindow" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="closeWindow()">Close</div>
+                <div id="backRemove" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backRemove()">Back</div>
+            </div>
         </div>
-    </div>
+
+        <div class="heightThick hide">
+            <div class="w3-bar" style=" padding-left: 20px;">
+                <div class="w3-bar-item">Height:</div>
+                <div class="w3-bar-item"><input id="addHeight" type="number" class="w3-input w3-border" min="1" max="99999" style="width: 200px;"/></div>
+            </div>
+            <div class="w3-bar">
+                <div class="w3-bar-item">Thickness:</div>
+                <div class="w3-bar-item"><input id="addThickness" type="number" class="w3-input w3-border" min="1" max="99999" style="width: 200px"/></div>
+            </div>
+            <div class="w3-right btnTop">
+                <div id="add" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="Add()">Add</div>
+                <div id="addCancel" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="AddCancel()">Cancel</div>
+                <div id="backThickHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backThickHeight()">Back</div>
+            </div>
+        </div>
+
+
     </div>
 
         <a href="#scrollSectionTop" class="w3-right w3-btn arrowUpDown scrollPosition1"><img class="upDownSize" src="up-arrow.svg" alt=""></a>
