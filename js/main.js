@@ -841,7 +841,7 @@ function AddCancel() {
     roofData = [];
     textHtmlRoof = "";
     document.getElementById("printRoof").innerHTML = '';
-    
+
     if (flagRoof !== 0)
         document.getElementById("svg").innerHTML = svgInit;
     flagRoof = 0;
@@ -929,7 +929,7 @@ function svgSubmit() {
         {
             let m = Math.floor(document.getElementById(str).value);
             if (m !== 0)
-                unRepeatedHeight.push({index: i, height: document.getElementById(str).value});
+                unRepeatedHeight.push({index: i, height: m});
         }
     }
 
@@ -944,7 +944,7 @@ function svgSubmit() {
         {
             let m = Math.floor(document.getElementById(str).value);
             if (m !== 0)
-                unRepeatedWidth.push({index: i, width: document.getElementById(str).value});
+                unRepeatedWidth.push({index: i, width: m});
         }
     }
 
