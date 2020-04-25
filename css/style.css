@@ -16,6 +16,11 @@ hr.hrBorder {
     border-top: 2px solid black;
 }
 
+hr.hrBorderRoof {
+    margin-top: 100px;
+    border-top: 2px solid black;
+}
+
 .colMargin {
     margin-right: 100px;
 }

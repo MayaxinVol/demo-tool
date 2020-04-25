@@ -10,6 +10,11 @@ let DX, DY;
 let DXInterval = [];
 let DYInterval = [];
 
+let unRepeatedHeight = [];
+let unRepeatedWidth = [];
+
+let roofData = [];
+
 let initTotalWidth = 1800;
 let DXInit = 100; // initial width
 let DYInit = 100; // initial height
@@ -144,6 +149,11 @@ function GenerateOpening() {
 }
 
 function apply() {
+
+    unRepeatedWidth = [];
+    unRepeatedHeight = [];
+    roofData = [];
+
     if (document.getElementById('totalWidth').disabled === true)
     {
         flagApplyWidth = false;
@@ -284,6 +294,9 @@ function apply() {
  */
 
 function applyHeight() {
+
+    unRepeatedHeight = [];
+    roofData = [];
 
     if (document.getElementById('totalHeight').disabled === true)
     {
@@ -562,8 +575,14 @@ function backRemove() {
 function backThickHeight() {
     flagAddThick = false;
     flagAddThickBack = true;
+
+    document.getElementById("printWidth").innerHTML = '';
+    document.getElementById("printHeight").innerHTML = '';
+    document.getElementById("printRoof").innerHTML = '';
+
     $("div.widthSetDelete").removeClass('hide');
     $("div.heightThick").addClass('hide');
+    $("hr.hrBorderRoof").addClass('hide');
 }
 
 /**
@@ -800,6 +819,8 @@ function Add() {
     let addPositionY = DYInit + document.getElementById('totalHeight').value/10 - document.getElementById("addHeight").value/10;
     let addPositionX = DXInit - 10;
 
+    roofData.push({index: addRoof, thick: Math.floor(Number(document.getElementById("addThickness").value)), height: Math.floor(document.getElementById("addHeight").value)});
+
     textHtmlRoof += `<rect id="points${addRoof}" x="${addPositionX}" y="${addPositionY}" width="${addWidth}" height="${addHeight}" fill="#dddddd"/>`;
     let eleSVG = document.getElementById("svg");
 
@@ -817,7 +838,10 @@ function Add() {
 }
 
 function AddCancel() {
+    roofData = [];
     textHtmlRoof = "";
+    document.getElementById("printRoof").innerHTML = '';
+    
     if (flagRoof !== 0)
         document.getElementById("svg").innerHTML = svgInit;
     flagRoof = 0;
@@ -870,6 +894,12 @@ function redrawLineUpdating() {
 }
 
 function svgSubmit() {
+    unRepeatedHeight = [];
+    unRepeatedWidth = [];
+    document.getElementById("printWidth").innerHTML = '';
+    document.getElementById("printHeight").innerHTML = '';
+    document.getElementById("printRoof").innerHTML = '';
+
     flagSubmit += 1;
     let eleSVG = document.getElementById("svg");
     let svgContainer = document.createElementNS("http://www.w3.org/1999/xlink", "svg");
@@ -880,9 +910,60 @@ function svgSubmit() {
     a.innerHTML = 'download ' + flagSubmit.toString();
     document.getElementById("submitImg").appendChild(a);
 
-    document.getElementById("scrollSectionTop").innerHTML +=  '<div class="w3-center"><svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100%" height="650px" class="w3-card" style="background-color: #ffffff;"></svg></div>';
+    document.getElementById("scrollSectionTop").innerHTML += '<div class="w3-center"><svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100%" height="650px" class="w3-card" style="background-color: #ffffff;"></svg></div>';
     let eleSVGLast = document.getElementById("svg");
     eleSVGLast.style.width = svgWidth + DXInit;
     eleSVGLast.style.height = svgHeight  + DYInit;
     eleSVGLast.innerHTML += eleSVG.innerHTML;
+
+
+    $("hr.hrBorderRoof").removeClass('hide');
+    /**
+     * calc the value of the height
+     */
+    for (let i = 1; i <= rows; i ++)
+    {
+        let str = (i).toString();
+        str = str.concat("thHeight");
+        if (document.getElementById(str) !== null)
+        {
+            let m = Math.floor(document.getElementById(str).value);
+            if (m !== 0)
+                unRepeatedHeight.push({index: i, height: document.getElementById(str).value});
+        }
+    }
+
+    /**
+     * calc the value of the width
+     */
+    for (let i = 1; i <= cols; i ++)
+    {
+        let str = (i).toString();
+        str = str.concat("th");
+        if (document.getElementById(str) !== null)
+        {
+            let m = Math.floor(document.getElementById(str).value);
+            if (m !== 0)
+                unRepeatedWidth.push({index: i, width: document.getElementById(str).value});
+        }
+    }
+
+    for(let t = 0; t < unRepeatedHeight.length; t ++)
+    {
+        document.getElementById("printWidth").innerHTML += unRepeatedHeight[t].index + 'th Height:   ' + unRepeatedHeight[t].height + '<br/>';
+    }
+
+    for(let t = 0; t < unRepeatedWidth.length; t ++)
+    {
+        document.getElementById("printHeight").innerHTML += unRepeatedWidth[t].index + 'th Width:   ' + unRepeatedWidth[t].width + '<br/>';
+    }
+
+    for(let t = 0; t < roofData.length; t ++)
+    {
+        document.getElementById("printRoof").innerHTML += 'Roof:   Height:   ' + roofData[t].height + '   Thick:   ' + roofData[t].thick + '<br/>';
+    }
+
+    console.log(unRepeatedHeight[3].height);
+    console.log(unRepeatedWidth);
+    console.log(roofData);
 }
