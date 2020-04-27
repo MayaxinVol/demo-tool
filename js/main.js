@@ -921,6 +921,8 @@ function svgSubmit() {
     /**
      * calc the value of the height
      */
+
+    let flagAuto = 0;
     for (let i = 1; i <= rows; i ++)
     {
         let str = (i).toString();
@@ -929,8 +931,24 @@ function svgSubmit() {
         {
             let m = Math.floor(document.getElementById(str).value);
             if (m !== 0)
+            {
+                flagAuto = 1;
+                unRepeatedHeight.push({index: i, height: m});
+            }
+        }
+    }
+
+    if(flagAuto === 0)
+    {
+        for (let i = 1; i < rows; i ++)
+        {
+                let m = Math.floor(document.getElementById("totalHeight").value/(rows-1));
                 unRepeatedHeight.push({index: i, height: m});
         }
+    }
+    else
+    {
+        flagAuto = 0;
     }
 
     /**
@@ -944,9 +962,26 @@ function svgSubmit() {
         {
             let m = Math.floor(document.getElementById(str).value);
             if (m !== 0)
+            {
+                flagAuto = 1;
                 unRepeatedWidth.push({index: i, width: m});
+            }
         }
     }
+
+    if(flagAuto === 0)
+    {
+        for (let i = 1; i < cols; i ++)
+        {
+            let m = Math.floor(document.getElementById("totalWidth").value/(cols-1));
+            unRepeatedWidth.push({index: i, width: m});
+        }
+    }
+    else
+    {
+        flagAuto = 0;
+    }
+
 
     for(let t = 0; t < unRepeatedHeight.length; t ++)
     {
