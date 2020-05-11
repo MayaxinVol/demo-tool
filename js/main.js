@@ -316,7 +316,7 @@ function apply() {
     for(let j = 0; j < cols; j++)
         auto[j] = Math.floor(DXInterval[j] * 10);
         
-    console.log(auto);
+
     showingWidthValues(auto);
     showingHeightValues(autoHeight);
 }
@@ -494,16 +494,16 @@ function linkPoint() {
         differenceWidth = differenceHeight * 3/2;
 
 
-    for(let i = arrp.length - cols; i < arrp.length - 1; i ++)
+    for(let i = arrp.length - cols; i < arrp.length; i ++)
     {
-        str += `<text x="${arrp[i].cx/2 + arrp[i + 1].cx/2 - fontSize/3}" y="${arrp[i].cy + differenceHeight}" fill="red" font-size="${fontSize}">${k}</text>`;
+        str += `<text x="${arrp[i].cx - fontSize/3}" y="${arrp[i].cy + differenceHeight}" fill="red" font-size="${fontSize}">${k}</text>`;
         k ++;
     }
 
-    k = rows-1;
-    for(let i = 0; i < rows - 1; i ++)
+    k = rows;
+    for(let i = 0; i < rows; i ++)
     {
-        str += `<text x="${arrp[i * cols].cx - differenceWidth}" y="${arrp[i * cols].cy/2 + arrp[(i + 1) * cols].cy/2 + differenceWidth/2}" fill="red" font-size="${fontSize}">${k}</text>`;
+        str += `<text x="${arrp[i * cols].cx - differenceWidth}" y="${arrp[i * cols].cy + differenceWidth/4}" fill="red" font-size="${fontSize}">${k}</text>`;
         k --;
     }
 
@@ -818,6 +818,29 @@ function setDelete() {
     svgInit = eleSVG.innerHTML;
 
     redrawLineUpdating();
+
+    let m = 0, flag = 0;
+    
+    for(let j = 1; j <= cols - 1; j ++)
+    {        
+        for(let i = 0; i < removePoints.length; i ++)
+        {
+            let t = removePoints[i] % cols + 1;
+            
+            if (j === t)
+                flag = 1;
+        }
+
+        if (flag === 1)
+        {
+            flag = 0;
+            
+            m += Number(lastPartitialWidth[j]);
+        }
+    }
+
+    
+    document.getElementById('deletedTotalWidth').value = m;
 }
 
 /**
