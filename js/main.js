@@ -820,27 +820,35 @@ function setDelete() {
     redrawLineUpdating();
 
     let m = 0;
-    
+    document.getElementById("printDelete").innerHTML = "";
+
     for(let j = 1; j <= cols - 1; j ++)
     {        
         for(let i = 0; i < removePoints.length; i ++)
         {
             if (j === removePoints[i] % cols + 1)
             {
-                m += Number(lastPartitialWidth[j]);
+                m += Number(lastPartitialWidth[j]);                
                 break;
             }
         }
     }
 
-    document.getElementById("printDelete").innerHTML = "";
+    let flag = 0, n = 0, sCount;
+    
     for(let t = 0; t < removePoints.length; t ++)
     {
-        document.getElementById("printDelete").innerHTML += removePoints[t] + '     ';
+        flag ++;
+        sCount = t + 1;
+        n += Number(lastPartitialWidth[removePoints[t] % cols + 1]);
+        document.getElementById("printDelete").innerHTML += '<a style="color: red;">' + sCount + '</a>' + ' -> ' + lastPartitialWidth[removePoints[t] % cols + 1] + ' :      ';
+        if (flag === 13)
+            document.getElementById("printDelete").innerHTML += '<br>';
     }
 
     
-    document.getElementById('deletedTotalWidth').value = m;
+    document.getElementById('deletedUnrepeatedTotalWidth').value = m;
+    document.getElementById('deletedRepeatedTotalWidth').value = n;
 }
 
 /**
