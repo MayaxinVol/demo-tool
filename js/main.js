@@ -819,24 +819,24 @@ function setDelete() {
 
     redrawLineUpdating();
 
-    let m = 0, flag = 0;
+    let m = 0;
     
     for(let j = 1; j <= cols - 1; j ++)
     {        
         for(let i = 0; i < removePoints.length; i ++)
         {
-            let t = removePoints[i] % cols + 1;
-            
-            if (j === t)
-                flag = 1;
+            if (j === removePoints[i] % cols + 1)
+            {
+                m += Number(lastPartitialWidth[j]);
+                break;
+            }
         }
+    }
 
-        if (flag === 1)
-        {
-            flag = 0;
-            
-            m += Number(lastPartitialWidth[j]);
-        }
+    document.getElementById("printDelete").innerHTML = "";
+    for(let t = 0; t < removePoints.length; t ++)
+    {
+        document.getElementById("printDelete").innerHTML += removePoints[t] + '     ';
     }
 
     
@@ -1047,4 +1047,4 @@ function svgSubmit() {
     {
         document.getElementById("printRoof").innerHTML += 'Roof:   Height:   ' + roofData[t].height + '   Thick:   ' + roofData[t].thick + '<br/>';
     }
-}
+}  
