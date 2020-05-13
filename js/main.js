@@ -888,17 +888,17 @@ function setDelete() {
 
     let n = 0;
     
-    for(let j = 1; j <= cols - 1; j ++)
-    {        
+    // for(let j = 1; j <= cols - 1; j ++)
+    // {        
         for(let i = 0; i < removePoints.length; i ++)
         {
-            if (j === removePoints[i] % cols + 1)
-            {
-                n += Number(lastPartitialWidth[j]);
-                break;
-            }
+            // if (j === removePoints[i] % cols + 1)
+            // {
+                n += Number(lastPartitialWidth[removePoints[i] % cols + 1]);
+            //     break;
+            // }
         }
-    }
+    // }
 
     // showingDeletedWidthValues(removePoints);
     
