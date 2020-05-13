@@ -51,6 +51,8 @@ let flagRoof = 0, flagSvgInit = 0;
 let flagSubmit = 0;
 let openingFlag = 1;
 
+let lastDeletedOpening = 0;
+
 function GenerateOpening() {
     flagSubmit = 0;
     cols = Number(document.getElementById("input_rows").value) + 1;
@@ -593,6 +595,10 @@ function cancelSPA() {
 function closeWindow() {
     removePoints = [];
     flagApplyHeight = false;
+    document.getElementById("deletedTotalWidthHistory").innerHTML = ''
+    openingFlag = 0;
+    lastDeletedOpening = 0;
+
     drawOpening();
     $("div.widthChange").removeClass('hide');
     $("div.widthSetDelete").addClass('hide');
@@ -880,7 +886,7 @@ function setDelete() {
 
     redrawLineUpdating();
 
-    let m = 0;
+    let n = 0;
     
     for(let j = 1; j <= cols - 1; j ++)
     {        
@@ -888,7 +894,7 @@ function setDelete() {
         {
             if (j === removePoints[i] % cols + 1)
             {
-                m += Number(lastPartitialWidth[j]);
+                n += Number(lastPartitialWidth[j]);
                 break;
             }
         }
@@ -896,6 +902,10 @@ function setDelete() {
 
     // showingDeletedWidthValues(removePoints);
     
+    let m = n - lastDeletedOpening;
+
+    if (m < 0 )
+        m = 0;
 
     if ((openingFlag % 8 === 1) )
             document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
@@ -945,6 +955,7 @@ function setDelete() {
 
 
         openingFlag ++;
+        lastDeletedOpening = n;
     // document.getElementById('deletedTotalWidth').value = m;
 }
 
@@ -1055,6 +1066,8 @@ function redrawLineUpdating() {
 
 function svgSubmit() {
     document.getElementById("deletedTotalWidthHistory").innerHTML = '';
+    openingFlag = 0;
+
     $("div.svgCodeShowing").removeClass('hide');
     unRepeatedHeight = [];
     unRepeatedWidth = [];
