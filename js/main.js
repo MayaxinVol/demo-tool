@@ -597,7 +597,7 @@ function closeWindow() {
     flagApplyHeight = false;
     document.getElementById("deletedTotalWidthHistory").innerHTML = ''
     openingFlag = 0;
-    lastDeletedOpening = 0;
+    lastDeletedOpening = 1;
 
     drawOpening();
     $("div.widthChange").removeClass('hide');
