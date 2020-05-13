@@ -21,6 +21,10 @@ hr.hrBorderRoof {
     border-top: 2px solid black;
 }
 
+div.svgCodeShowing {
+    margin-left: 20%; margin-right: 20%;
+}
+
 .colMargin {
     margin-right: 100px;
 }

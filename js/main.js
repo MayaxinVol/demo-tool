@@ -166,6 +166,65 @@ function showingWidthValues(autoValues) {
     lastPartitialWidth = JSON.parse(JSON.stringify(autoValues));
 }
 
+
+function showingDeletedWidthValues(autoValues) {
+
+    document.getElementById("printDelete").innerHTML = '';
+        
+    
+    for(let j = 0; j < removePoints.length; j ++)
+    {
+        let i = j + 1;
+
+        let m = Number(lastPartitialWidth[removePoints[j] % cols + 1]);
+                
+        if ((i % 8 === 1) )
+            document.getElementById("printDelete").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
+        if (i === 1)
+            document.getElementById("printDelete").innerHTML += '                <div class="w3-bar-item">\n' +
+            '                    <label for="1th"><a class="underLineTxt">1</a>st Deleted Width: </label>\n' +
+            '                </div>\n' +
+            '                <div class="w3-bar-item">\n' +
+            '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
+            '                </div>\n' +
+            '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        else if((i !== 1) && (i % 8 === 1))
+            if (i === 9)
+                document.getElementById("printDelete").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+                '                    <label for="' + i + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("printDelete").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+                    '                    <label for="' + i + 'th"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+        else
+            if (i < 10)
+                document.getElementById("printDelete").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="' + i + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + i + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+            else
+                document.getElementById("printDelete").innerHTML += '                <div class="w3-bar-item">\n' +
+                    '                    <label for="' + i + 'th"><a class="underLineTxt">' + i + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + i + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '"disabled="disabled"/>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
+    }
+}
+
 function showingHeightValues(autoValues) {
     document.getElementById("heightPer").innerHTML = '';
     for (let i = 1; i < rows; i ++)
@@ -266,7 +325,7 @@ function apply() {
         }
     }
 
-    console.log(remainCols, remainWidth);
+    
 
     if (remainWidth < 0)
     {
@@ -615,6 +674,7 @@ function backThickHeight() {
     $("div.widthSetDelete").removeClass('hide');
     $("div.heightThick").addClass('hide');
     $("hr.hrBorderRoof").addClass('hide');
+    $("div.svgCodeShowing").addClass('hide');
 }
 
 /**
@@ -820,35 +880,22 @@ function setDelete() {
     redrawLineUpdating();
 
     let m = 0;
-    document.getElementById("printDelete").innerHTML = "";
-
+    
     for(let j = 1; j <= cols - 1; j ++)
     {        
         for(let i = 0; i < removePoints.length; i ++)
         {
             if (j === removePoints[i] % cols + 1)
             {
-                m += Number(lastPartitialWidth[j]);                
+                m += Number(lastPartitialWidth[j]);
                 break;
             }
         }
     }
 
-    let flag = 0, n = 0, sCount;
+    showingDeletedWidthValues(removePoints);
     
-    for(let t = 0; t < removePoints.length; t ++)
-    {
-        flag ++;
-        sCount = t + 1;
-        n += Number(lastPartitialWidth[removePoints[t] % cols + 1]);
-        document.getElementById("printDelete").innerHTML += '<a style="color: red;">' + sCount + '</a>' + ' -> ' + lastPartitialWidth[removePoints[t] % cols + 1] + ' :      ';
-        if (flag === 13)
-            document.getElementById("printDelete").innerHTML += '<br>';
-    }
-
-    
-    document.getElementById('deletedUnrepeatedTotalWidth').value = m;
-    document.getElementById('deletedRepeatedTotalWidth').value = n;
+    document.getElementById('deletedTotalWidth').value = m;
 }
 
 /**
@@ -901,6 +948,7 @@ function AddCancel() {
     roofData = [];
     textHtmlRoof = "";
     document.getElementById("printRoof").innerHTML = '';
+    $("div.svgCodeShowing").addClass('hide');
 
     if (flagRoof !== 0)
         document.getElementById("svg").innerHTML = svgInit;
@@ -954,6 +1002,7 @@ function redrawLineUpdating() {
 }
 
 function svgSubmit() {
+    $("div.svgCodeShowing").removeClass('hide');
     unRepeatedHeight = [];
     unRepeatedWidth = [];
     document.getElementById("printWidth").innerHTML = '';
@@ -972,14 +1021,14 @@ function svgSubmit() {
 
     document.getElementById("scrollSectionTop").innerHTML += '<div class="w3-center"><svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="100%" height="650px" class="w3-card" style="background-color: #ffffff;"></svg></div>';
     let eleSVGLast = document.getElementById("svg");
+    let eleSVGLastTAG = document.getElementsByTagName('svg');
     eleSVGLast.style.width = svgWidth + DXInit;
     eleSVGLast.style.height = svgHeight  + DYInit;
     eleSVGLast.innerHTML += eleSVG.innerHTML;
 
     $("hr.hrBorderRoof").removeClass('hide');
-    /**
-     * calc the value of the height
-     */
+
+    document.getElementById("svgCode").innerText = eleSVGLast.innerHTML;
 
     let flagAuto = 0;
     for (let i = 1; i <= rows; i ++)

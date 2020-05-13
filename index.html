@@ -21,7 +21,7 @@
 <!-- * First Screen-->
 <!--*/-->
         <div id="inputRowCol" class="inputRowCol" style="top: 700px">
-            <div class="w3-bar" style="">
+            <div class="w3-bar">
                 <div class="w3-bar-item">
                     <label for="input_rows">Number of Fields in <a class="underLineTxt">W</a>idth: </label>
                 </div>
@@ -119,23 +119,14 @@
 <!--*/-->
         <div id="widthHeightSetDelete" class="widthSetDelete hide">
             <div class="w3-left">
-                <div class="w3-row w3-bar" style=" padding-left: 20px;">
+
+                <div class="w3-bar" style=" padding-left: 20px;">
                     <div class="w3-bar-item">Deleted Total Width:</div>
-                    <div class="w3-bar-item"><input id="deletedUnrepeatedTotalWidth" type="number" class="w3-input w3-border" min="1" max="99999" value="0" disabled="disabled" style="width: 200px;"/></div>
+                    <div class="w3-bar-item"><input id="deletedTotalWidth" type="number" class="w3-input w3-border" min="1" max="99999" value="0" disabled="disabled" style="width: 200px;"/></div>                    
                 </div>
 
-                <div class="w3-row w3-bar" style="padding-left: 20px;">
-                    <div class="w3-bar-item">Deleted Total Width:</div>
-                    <div class="w3-bar-item"><input id="deletedRepeatedTotalWidth" type="number" class="w3-input w3-border" min="1" max="99999" value="0" disabled="disabled" style="width: 200px;"/></div>
-                </div>
-                
-                <div class="w3-bar">
-                    <div class="w3-bar-item"><a>Width of Deleted Openings:</a></div>
-                    <div class="w3-bar-item"><a id="printDelete"></a></div>
-                </div>
-                    
-                    
-                
+                <div id="printDelete" class="w3-bar" style=" padding-left: 20px;"></div>
+
             </div>
             <div class="w3-right btnTop">
                 <div id="setDelete" class="w3-button w3-gray btnOKCancel" style="border: 1px solid black;" onclick="setDelete()">Set / Delete</div>
@@ -158,7 +149,8 @@
                 <div id="add" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="Add()">Add</div>
                 <div id="submit" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="svgSubmit()">Submit</div>
                 <div id="addCancel" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="AddCancel()">Cancel</div>
-                <div id="backThickHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backThickHeight()">Back</div>
+                <div id="backThickHeight" class="w3-button w3-light-gray btnOKCancel" style="border: 1px solid black" onclick="backThickHeight()">Back</div>              
+                
             </div>
         </div>
 
@@ -167,8 +159,12 @@
             <div id="printWidth" class="w3-col l4"></div>
             <div id="printHeight" class="w3-col l4"></div>
             <div id="printRoof" class="w3-col l4"></div>
-        </div>
+        </div>        
 
+        <hr class="hrBorderRoof">
+        <div class="w3-row svgCodeShowing hide">
+            <div id="svgCode" class="w3-input w3-center w3-border"></div>
+        </div>
     </div>
 
         <a href="#scrollSectionTop" class="w3-right w3-btn arrowUpDown scrollPosition1"><img class="upDownSize" src="up-arrow.svg" alt=""></a>
