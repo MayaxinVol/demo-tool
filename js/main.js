@@ -52,6 +52,7 @@ let flagSubmit = 0;
 let openingFlag = 1;
 
 let lastDeletedOpening = 0;
+let H_height = [];
 
 function GenerateOpening() {
     flagSubmit = 0;
@@ -328,7 +329,7 @@ function apply() {
         }
     }
 
-    
+
 
     if (remainWidth < 0)
     {
@@ -497,17 +498,14 @@ function drawOpening() {
         kk = i * cols + (j - 1);
         if (j - 1 >= 0) textHtml += txtHtmlOfLine(k, kk).str;
 
-
-
-
         kk = (i + 1) * cols + (j - 1);
         if (dirs === 8 && i + 1 < rows && j - 1 >= 0)
             textHtml += txtHtmlOfLine(k, kk).str;
-
-        textHtml += txtHtmlOfImage(k).str;
     }
 
-    textHtml += linkPoint().str + `<image x="100" y="92" width="16" height="16" xlink:href="imageedit.png" />`;
+    textHtml += txtHtmlOfImage().str;
+
+    textHtml += linkPoint().str;
 
     let eleSVG = document.getElementById("svg");
     eleSVG.style.width = svgWidth + DXInit;
@@ -526,16 +524,25 @@ function txtHtmlOfLine(k, kk) {
     if (k >= 0 && k < arrp.length && kk >= 0 && kk < arrp.length)
 
         str = `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
-        // // str += ' <image x="${arrp[k].cx}" y="$${arrp[k].cy}" width="136" height="23" xlink:href="imageedit.png" />';
-        // str += `<image x="100" y="92" width="16" height="16" xlink:href="imageedit.png" />`;
-        // str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageedit.png" />`;
 
     return { str };
 }
 
-function txtHtmlOfImage(k) {
+function txtHtmlOfImage() {
     let str = "";
-    str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageedit.png" />`;
+    str = `<image x="100" y="92" width="16" height="16" xlink:href="imageedit.png" />`;
+
+    for (let k = 0; k < arrp.length; k++) {
+        if ((arrp[k].i === 0) || (arrp[k].i === rows - 1))
+        {
+            console.log(k % cols + 1, H_height[k % cols + 1]);
+            if ((((arrp[k].i === 0) &&(removedPoints.includes(k) === true) && (H_height[k % cols] > 0)) || ((arrp[k].i === rows - 1) &&(removedPoints.includes(k - cols) === true) && (H_height[k % cols] > 0)))){
+                str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageDelete.png" />`;
+            } else {
+                str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageedit.png" />`;
+            }
+        }
+    }
     return { str };
 }
 
@@ -844,6 +851,15 @@ function setDelete() {
         }
     }
 
+
+
+
+
+
+
+
+
+
     /**
      * Removing repeating points
      * @type {HTMLElement}
@@ -897,6 +913,7 @@ function setDelete() {
 
     let eleSVG = document.getElementById("svg");
 
+
     eleSVG.innerHTML += textHtmlSetDelete;
     svgInit = eleSVG.innerHTML;
 
@@ -909,8 +926,6 @@ function setDelete() {
             n += Number(lastPartitialWidth[removePoints[i] % cols + 1]);
     }
 
-    // showingDeletedWidthValues(removePoints);
-    
     let m = n - lastDeletedOpening;
 
     // if (m < 0 )
@@ -973,7 +988,7 @@ function setDelete() {
     document.getElementById("deletedTotalWidthHistory").innerHTML = '';
     openingFlag = 1;
 
-    let H_height = [];
+
     for(let k1 = 0; k1 <= cols; k1 ++)
     {
         H_height[k1] = 0;
@@ -1199,6 +1214,9 @@ function setDelete() {
                 '                </div>\n' +
                 '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
     }
+
+
+    eleSVG.innerHTML += txtHtmlOfImage().str;
 }
 
 /**
@@ -1300,6 +1318,8 @@ function redrawLineUpdating() {
         k = j * cols - 1;
         textHtml += `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[k + cols].cx}" y2="${arrp[k + cols].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
     }
+
+    textHtml += txtHtmlOfImage().str;
 
     let eleSVG = document.getElementById("svg");
 
