@@ -55,6 +55,7 @@ let lastDeletedOpening = 0;
 let H_height = [];
 
 function GenerateOpening() {
+    H_height = [];
     flagSubmit = 0;
     cols = Number(document.getElementById("input_rows").value) + 1;
     rows = Number(document.getElementById("input_cols").value) + 1;
@@ -299,6 +300,7 @@ function apply() {
     unRepeatedWidth = [];
     unRepeatedHeight = [];
     roofData = [];
+    H_height = [];
 
     if (document.getElementById('totalWidth').disabled === true)
     {
@@ -395,6 +397,7 @@ function applyHeight() {
 
     unRepeatedHeight = [];
     roofData = [];
+    H_height = [];
 
     if (document.getElementById('totalHeight').disabled === true)
     {
@@ -606,6 +609,7 @@ function reset() {
     textHtmlRoof = "";
     svgInit = "";
     flagRoof = 0;
+    H_height = [];
 
     GenerateOpening();
 }
@@ -621,6 +625,7 @@ function closeWindow() {
     document.getElementById("deletedTotalWidthHistory").innerHTML = '';
     openingFlag = 0;
     lastDeletedOpening = 1;
+    H_height = [];
 
     drawOpening();
     $("div.widthChange").removeClass('hide');
@@ -640,6 +645,7 @@ function resetHeight() {
     textHtmlRoof = "";
     svgInit = "";
     flagRoof = 0;
+    H_height = [];
     drawOpening();
 }
 
