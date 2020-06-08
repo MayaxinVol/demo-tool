@@ -497,12 +497,17 @@ function drawOpening() {
         kk = i * cols + (j - 1);
         if (j - 1 >= 0) textHtml += txtHtmlOfLine(k, kk).str;
 
+
+
+
         kk = (i + 1) * cols + (j - 1);
         if (dirs === 8 && i + 1 < rows && j - 1 >= 0)
             textHtml += txtHtmlOfLine(k, kk).str;
+
+        textHtml += txtHtmlOfImage(k).str;
     }
 
-    textHtml += linkPoint().str;
+    textHtml += linkPoint().str + `<image x="100" y="92" width="16" height="16" xlink:href="imageedit.png" />`;
 
     let eleSVG = document.getElementById("svg");
     eleSVG.style.width = svgWidth + DXInit;
@@ -519,8 +524,18 @@ function drawOpening() {
 function txtHtmlOfLine(k, kk) {
     let str = "";
     if (k >= 0 && k < arrp.length && kk >= 0 && kk < arrp.length)
-        str = `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
 
+        str = `<line x1="${arrp[k].cx}" y1="${arrp[k].cy}" x2="${arrp[kk].cx}" y2="${arrp[kk].cy}" stroke = "${back_color}" stroke-width="${borderThick}" style="pointer-events: none;"/>`;
+        // // str += ' <image x="${arrp[k].cx}" y="$${arrp[k].cy}" width="136" height="23" xlink:href="imageedit.png" />';
+        // str += `<image x="100" y="92" width="16" height="16" xlink:href="imageedit.png" />`;
+        // str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageedit.png" />`;
+
+    return { str };
+}
+
+function txtHtmlOfImage(k) {
+    let str = "";
+    str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageedit.png" />`;
     return { str };
 }
 
