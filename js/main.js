@@ -898,8 +898,8 @@ function setDelete() {
     
     let m = n - lastDeletedOpening;
 
-    if (m < 0 )
-        m = 0;
+    // if (m < 0 )
+    //     m = 0;
 
     // if ((openingFlag % 8 === 1) )
     //         document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
@@ -957,6 +957,13 @@ function setDelete() {
 
     document.getElementById("deletedTotalWidthHistory").innerHTML = '';
     openingFlag = 1;
+
+    let H_height = [];
+    for(let k1 = 0; k1 <= cols; k1 ++)
+    {
+        H_height[k1] = 0;
+    }
+
     for (let j = 0; j < rows - 1; j ++)
         for (let i = 0; i < cols - 1; i ++)
         {
@@ -1000,8 +1007,6 @@ function setDelete() {
                         {
                             max_i = ii;
                             max_j = jj;
-                            // DeletedOpeningHeight = jj - j + 1;
-                            // DeletedOpeningWidth = ii - i + 1;
 
                             let n = 0;
                             for(let k1 = i + 1; k1 <= max_i + 1; k1 ++)
@@ -1012,6 +1017,10 @@ function setDelete() {
                             for(let k1 = j + 1; k1 <= max_j + 1; k1 ++)
                             {
                                 nn += Number(lastPartitialHeight[k1]);
+                            }
+
+                            for (let k1 = i + 1; k1 <= max_i; k1 ++){
+                                H_height[k1] = nn;
                             }
 
                             DeletedOpeningHeight = Math.floor(nn/100);
@@ -1027,111 +1036,154 @@ function setDelete() {
                     OpeningPoints.splice(OpeningPoints.indexOf(openingPosition_kkk), 1);
                 }
 
-            // console.log("@@@", lastPartitialHeight);
-            // console.log("###", lastPartitialWidth);
-            // console.log("max_i = ", max_i, "max_j", max_j);
             // console.log("Height = ", DeletedOpeningHeight, "Width = ", DeletedOpeningWidth);
 
-            if ((openingFlag % 8 === 1) )
-                document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
-            if (openingFlag === 1)
-                document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-                    '                    <label for="1th"><a class="underLineTxt">1</a>st Deleted Opening Width: </label>\n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item">' +
-                    '                   <div class="w3-row w3-bar">' +
-                            '               <div class="w3-bar-item">\n' +
-                            '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-                            '                </div>\n' +
-                            '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                    '                   </div>' +
-                    '                   <div class="w3-row w3-bar">' +
-                            '               <div class="w3-bar-item">\n' +
-                            '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-                            '                </div>\n' +
-                            '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                            '          </div>' +
-                                    '</div>';
-            else if((openingFlag !== 1) && (openingFlag % 8 === 1))
-                if (openingFlag === 9)
-                    document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
-                        '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
-                        '                </div>\n' +
-                        '                <div class="w3-bar-item">\n' +
-                        '                   <div class="w3-row w3-bar">' +
-                        '               <div class="w3-bar-item">\n' +
-                        '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-                        '                </div>\n' +
-                        '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                        '                   </div>' +
-                        '                   <div class="w3-row w3-bar">' +
-                        '               <div class="w3-bar-item">\n' +
-                        '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-                        '                </div>\n' +
-                        '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                        '          </div>' +
-                        '</div>';
-                else
-                    document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
-                        '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
-                        '                </div>\n' +
-                        '                <div class="w3-bar-item">\n' +
-                        '                   <div class="w3-row w3-bar">' +
-                        '               <div class="w3-bar-item">\n' +
-                        '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-                        '                </div>\n' +
-                        '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                        '                   </div>' +
-                        '                   <div class="w3-row w3-bar">' +
-                        '               <div class="w3-bar-item">\n' +
-                        '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-                        '                </div>\n' +
-                        '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                        '          </div>' +
-                        '</div>';
-            else
-            if (openingFlag < 10)
-                document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-                    '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item">\n' +
-                    '                   <div class="w3-row w3-bar">' +
-                    '               <div class="w3-bar-item">\n' +
-                    '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                    '                   </div>' +
-                    '                   <div class="w3-row w3-bar">' +
-                    '               <div class="w3-bar-item">\n' +
-                    '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                    '          </div>' +
-                    '</div>';
-            else
-                document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-                    '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item">\n' +
-                    '                   <div class="w3-row w3-bar">' +
-                    '               <div class="w3-bar-item">\n' +
-                    '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                    '                   </div>' +
-                    '                   <div class="w3-row w3-bar">' +
-                    '               <div class="w3-bar-item">\n' +
-                    '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-                    '                </div>\n' +
-                    '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-                    '          </div>' +
-                    '</div>';
-
-            openingFlag ++;
+            // if ((openingFlag % 8 === 1) )
+            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
+            // if (openingFlag === 1)
+            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
+            //         '                    <label for="1th"><a class="underLineTxt">1</a>st Deleted Opening Width: </label>\n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item">' +
+            //         '                   <div class="w3-row w3-bar">' +
+            //                 '               <div class="w3-bar-item">\n' +
+            //                 '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
+            //                 '                </div>\n' +
+            //                 '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //         '                   </div>' +
+            //         '                   <div class="w3-row w3-bar">' +
+            //                 '               <div class="w3-bar-item">\n' +
+            //                 '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
+            //                 '                </div>\n' +
+            //                 '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //                 '          </div>' +
+            //                         '</div>';
+            // else if((openingFlag !== 1) && (openingFlag % 8 === 1))
+            //     if (openingFlag === 9)
+            //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+            //             '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
+            //             '                </div>\n' +
+            //             '                <div class="w3-bar-item">\n' +
+            //             '                   <div class="w3-row w3-bar">' +
+            //             '               <div class="w3-bar-item">\n' +
+            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
+            //             '                </div>\n' +
+            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //             '                   </div>' +
+            //             '                   <div class="w3-row w3-bar">' +
+            //             '               <div class="w3-bar-item">\n' +
+            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
+            //             '                </div>\n' +
+            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //             '          </div>' +
+            //             '</div>';
+            //     else
+            //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+            //             '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
+            //             '                </div>\n' +
+            //             '                <div class="w3-bar-item">\n' +
+            //             '                   <div class="w3-row w3-bar">' +
+            //             '               <div class="w3-bar-item">\n' +
+            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
+            //             '                </div>\n' +
+            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //             '                   </div>' +
+            //             '                   <div class="w3-row w3-bar">' +
+            //             '               <div class="w3-bar-item">\n' +
+            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
+            //             '                </div>\n' +
+            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //             '          </div>' +
+            //             '</div>';
+            // else
+            // if (openingFlag < 10)
+            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
+            //         '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item">\n' +
+            //         '                   <div class="w3-row w3-bar">' +
+            //         '               <div class="w3-bar-item">\n' +
+            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //         '                   </div>' +
+            //         '                   <div class="w3-row w3-bar">' +
+            //         '               <div class="w3-bar-item">\n' +
+            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //         '          </div>' +
+            //         '</div>';
+            // else
+            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
+            //         '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item">\n' +
+            //         '                   <div class="w3-row w3-bar">' +
+            //         '               <div class="w3-bar-item">\n' +
+            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //         '                   </div>' +
+            //         '                   <div class="w3-row w3-bar">' +
+            //         '               <div class="w3-bar-item">\n' +
+            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
+            //         '                </div>\n' +
+            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
+            //         '          </div>' +
+            //         '</div>';
+            //
+            // openingFlag ++;
         }
 
-    // console.log(DeletedOpening);
-    // document.getElementById('deletedTotalWidth').value = m;
+    for (let k1 = 1; k1 <= cols; k1 ++){
+
+        H_height[k1] = Math.floor(H_height[k1]/100);
+        if ((k1 % 8 === 1) )
+            document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
+        if (k1 === 1)
+            document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="1th"><a class="underLineTxt1">H1</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + H_height[k1-1] + '" disabled="disabled"/>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
+        else if((k1 !== 1) && (k1 % 8 === 1))
+            if (k1 === 9)
+                document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+                    '                    <label for="' + k1 + 'th"><a class="underLineTxt1">' + '&nbsp;&nbsp;' + 'H' + k1 + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + k1 + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + H_height[k1-1] + '" disabled="disabled"/>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
+            else
+                document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
+                    '                    <label for="' + k1 + 'th"><a class="underLineTxt1">' + 'H' + k1 + '.</a>: </label>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item">\n' +
+                    '                    <input id="' + k1 + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + H_height[k1-1] + '" disabled="disabled"/>\n' +
+                    '                </div>\n' +
+                    '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
+        else
+        if (k1 < 10)
+            document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="' + k1 + 'th"><a class="underLineTxt1">' + '&nbsp;&nbsp;' + 'H' + k1 + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + k1 + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + H_height[k1-1] + '" disabled="disabled"/>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
+        else
+            document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
+                '                    <label for="' + k1 + 'th"><a class="underLineTxt1">' + 'H' + k1 + '.</a>: </label>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item">\n' +
+                '                    <input id="' + k1 + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + H_height[k1-1] + '"disabled="disabled"/>\n' +
+                '                </div>\n' +
+                '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
+    }
 }
 
 /**
