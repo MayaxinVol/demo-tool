@@ -104,7 +104,7 @@ function GenerateOpening() {
     document.getElementById("totalWidth").value = totalWidth;
     document.getElementById("totalHeight").value = totalHeight;
     svgWidth = DX * cols;
-    svgHeight = DY * rows;
+    svgHeight = DY * rows + 20;
     drawOpening();
 }
 
