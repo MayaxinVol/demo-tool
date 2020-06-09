@@ -533,16 +533,23 @@ function txtHtmlOfLine(k, kk) {
 
 function txtHtmlOfImage() {
     let str = "";
-    str = `<image x="100" y="92" width="16" height="16" xlink:href="imageedit.png" />`;
+    // str = `<image x="100" y="75" width="16" height="16" xlink:href="imageedit.png" />`;
 
     for (let k = 0; k < arrp.length; k++) {
         if ((arrp[k].i === 0) || (arrp[k].i === rows - 1))
         {
-            console.log(k % cols + 1, H_height[k % cols + 1]);
-            if ((((arrp[k].i === 0) &&(removedPoints.includes(k) === true) && (H_height[k % cols] > 0)) || ((arrp[k].i === rows - 1) &&(removedPoints.includes(k - cols) === true) && (H_height[k % cols] > 0)))){
-                str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageDelete.png" />`;
-            } else {
-                str += `<image x="${arrp[k].cx}" y="${arrp[k].cy-8}" width="16" height="16" xlink:href="imageedit.png" />`;
+            if ((arrp[k].i === 0) && (H_height[k % cols] > 0)) {
+                str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy - 20}" width="16" height="16" xlink:href="imageDelete.png" />`;
+            } else if ((arrp[k].i === rows - 1) && (H_height[k % cols] > 0)) {
+                str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy + 6}" width="16" height="16" xlink:href="imageDelete.png" />`;
+            }
+
+             else {
+                if (k < cols) {
+                    str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy - 20}" width="16" height="16" xlink:href="imageedit.png" />`;
+                } else {
+                    str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy + 6}" width="16" height="16" xlink:href="imageedit.png" />`;
+                }
             }
         }
     }
@@ -584,7 +591,7 @@ function linkPoint() {
 
     for(let i = arrp.length - cols; i < arrp.length; i ++)
     {
-        str += `<text x="${arrp[i].cx - fontSize/3}" y="${arrp[i].cy + differenceHeight}" fill="red" font-size="${fontSize}">${k}</text>`;
+        str += `<text x="${arrp[i].cx - fontSize/3}" y="${arrp[i].cy + differenceHeight + 22}" fill="red" font-size="${fontSize}">${k}</text>`;
         k ++;
     }
 
