@@ -171,12 +171,8 @@ function showingWidthValues(autoValues) {
     lastPartitialWidth = JSON.parse(JSON.stringify(autoValues));
 }
 
-
 function showingDeletedWidthValues(autoValues) {
-
     document.getElementById("printDelete").innerHTML = '';
-        
-    
     for(let j = 0; j < removePoints.length; j ++)
     {
         let i = j + 1;
@@ -296,7 +292,6 @@ function showingHeightValues(autoValues) {
 }
 
 function apply() {
-
     unRepeatedWidth = [];
     unRepeatedHeight = [];
     roofData = [];
@@ -330,8 +325,6 @@ function apply() {
             remainWidth -= document.getElementById(str).value/10;
         }
     }
-
-
 
     if (remainWidth < 0)
     {
@@ -380,7 +373,7 @@ function apply() {
     let auto = [];
     for(let j = 0; j < cols; j++)
         auto[j] = Math.floor(DXInterval[j] * 10);
-        
+
 
     showingWidthValues(auto);
     showingHeightValues(autoHeight);
@@ -391,10 +384,6 @@ function apply() {
  */
 
 function applyHeight() {
-
-    // if (flagBackRemove === true)
-    //     document.getElementById("deletedTotalWidthHistory").innerHTML = '';
-
     unRepeatedHeight = [];
     roofData = [];
     H_height = [];
@@ -479,7 +468,6 @@ function applyHeight() {
     drawOpening();
 
     showingHeightValues(auto);
-    // lastPartitialHeight = JSON.parse(JSON.stringify(auto));
     svgHeight = totalHeight/10 + 100;
 }
 
@@ -533,8 +521,6 @@ function txtHtmlOfLine(k, kk) {
 
 function txtHtmlOfImage() {
     let str = "";
-    // str = `<image x="100" y="75" width="16" height="16" xlink:href="imageedit.png" />`;
-
     for (let k = 0; k < arrp.length; k++) {
         if ((arrp[k].i === 0) || (arrp[k].i === rows - 1))
         {
@@ -865,15 +851,6 @@ function setDelete() {
         }
     }
 
-
-
-
-
-
-
-
-
-
     /**
      * Removing repeating points
      * @type {HTMLElement}
@@ -940,59 +917,7 @@ function setDelete() {
             n += Number(lastPartitialWidth[removePoints[i] % cols + 1]);
     }
 
-    let m = n - lastDeletedOpening;
-
-    // if (m < 0 )
-    //     m = 0;
-
-    // if ((openingFlag % 8 === 1) )
-    //         document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
-    // if (openingFlag === 1)
-    //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-    //     '                    <label for="1th"><a class="underLineTxt">1</a>st Deleted Total Width: </label>\n' +
-    //     '                </div>\n' +
-    //     '                <div class="w3-bar-item">\n' +
-    //     '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m+1 + '" disabled="disabled"/>\n' +
-    //     '                </div>\n' +
-    //     '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
-    // else if((openingFlag !== 1) && (openingFlag % 8 === 1))
-    //     if (openingFlag === 9)
-    //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
-    //         '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
-    //         '                </div>\n' +
-    //         '                <div class="w3-bar-item">\n' +
-    //         '                    <input id="' + openingFlag + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
-    //         '                </div>\n' +
-    //         '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
-    //     else
-    //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
-    //             '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
-    //             '                </div>\n' +
-    //             '                <div class="w3-bar-item">\n' +
-    //             '                    <input id="' + openingFlag + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
-    //             '                </div>\n' +
-    //             '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
-    // else
-    //     if (openingFlag < 10)
-    //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-    //         '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
-    //         '                </div>\n' +
-    //         '                <div class="w3-bar-item">\n' +
-    //         '                    <input id="' + openingFlag + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '" disabled="disabled"/>\n' +
-    //         '                </div>\n' +
-    //         '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
-    //     else
-    //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-    //             '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
-    //             '                </div>\n' +
-    //             '                <div class="w3-bar-item">\n' +
-    //             '                    <input id="' + openingFlag + 'th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + m + '"disabled="disabled"/>\n' +
-    //             '                </div>\n' +
-    //             '                <div class="w3-bar-item" style="padding-left: 0;">mm</div>';
-    //
-    //
-    //     openingFlag ++;
-        lastDeletedOpening = n;
+    lastDeletedOpening = n;
 
     /**
      * Width and Height of Deleted Openings
@@ -1079,105 +1004,6 @@ function setDelete() {
                     let openingPosition_kkk = iii + jjj * cols;
                     OpeningPoints.splice(OpeningPoints.indexOf(openingPosition_kkk), 1);
                 }
-
-            // console.log("Height = ", DeletedOpeningHeight, "Width = ", DeletedOpeningWidth);
-
-            // if ((openingFlag % 8 === 1) )
-            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '</div><div class="w3-bar" style="padding-left: 96px !important;">';
-            // if (openingFlag === 1)
-            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-            //         '                    <label for="1th"><a class="underLineTxt">1</a>st Deleted Opening Width: </label>\n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item">' +
-            //         '                   <div class="w3-row w3-bar">' +
-            //                 '               <div class="w3-bar-item">\n' +
-            //                 '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-            //                 '                </div>\n' +
-            //                 '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //         '                   </div>' +
-            //         '                   <div class="w3-row w3-bar">' +
-            //                 '               <div class="w3-bar-item">\n' +
-            //                 '                    <input id="1th" type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-            //                 '                </div>\n' +
-            //                 '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //                 '          </div>' +
-            //                         '</div>';
-            // else if((openingFlag !== 1) && (openingFlag % 8 === 1))
-            //     if (openingFlag === 9)
-            //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
-            //             '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
-            //             '                </div>\n' +
-            //             '                <div class="w3-bar-item">\n' +
-            //             '                   <div class="w3-row w3-bar">' +
-            //             '               <div class="w3-bar-item">\n' +
-            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-            //             '                </div>\n' +
-            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //             '                   </div>' +
-            //             '                   <div class="w3-row w3-bar">' +
-            //             '               <div class="w3-bar-item">\n' +
-            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-            //             '                </div>\n' +
-            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //             '          </div>' +
-            //             '</div>';
-            //     else
-            //         document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item" style="padding-left: 96px !important;">\n' +
-            //             '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
-            //             '                </div>\n' +
-            //             '                <div class="w3-bar-item">\n' +
-            //             '                   <div class="w3-row w3-bar">' +
-            //             '               <div class="w3-bar-item">\n' +
-            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-            //             '                </div>\n' +
-            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //             '                   </div>' +
-            //             '                   <div class="w3-row w3-bar">' +
-            //             '               <div class="w3-bar-item">\n' +
-            //             '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-            //             '                </div>\n' +
-            //             '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //             '          </div>' +
-            //             '</div>';
-            // else
-            // if (openingFlag < 10)
-            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-            //         '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + '&nbsp;&nbsp;' + openingFlag + '.</a>: </label>\n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item">\n' +
-            //         '                   <div class="w3-row w3-bar">' +
-            //         '               <div class="w3-bar-item">\n' +
-            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //         '                   </div>' +
-            //         '                   <div class="w3-row w3-bar">' +
-            //         '               <div class="w3-bar-item">\n' +
-            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //         '          </div>' +
-            //         '</div>';
-            // else
-            //     document.getElementById("deletedTotalWidthHistory").innerHTML += '                <div class="w3-bar-item">\n' +
-            //         '                    <label for="' + openingFlag + 'th"><a class="underLineTxt">' + openingFlag + '.</a>: </label>\n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item">\n' +
-            //         '                   <div class="w3-row w3-bar">' +
-            //         '               <div class="w3-bar-item">\n' +
-            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningWidth + '" disabled="disabled"/> \n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //         '                   </div>' +
-            //         '                   <div class="w3-row w3-bar">' +
-            //         '               <div class="w3-bar-item">\n' +
-            //         '                    <input id="' +openingFlag + 'th" +  type="number" class="w3-input w3-border" min="1" max="99999" value="' + DeletedOpeningHeight + '" disabled="disabled"/> \n' +
-            //         '                </div>\n' +
-            //         '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>' +
-            //         '          </div>' +
-            //         '</div>';
-            //
-            // openingFlag ++;
         }
 
     for (let k1 = 1; k1 <= cols; k1 ++){
@@ -1228,7 +1054,6 @@ function setDelete() {
                 '                </div>\n' +
                 '                <div class="w3-bar-item" style="padding-left: 0;">cm</div>';
     }
-
 
     eleSVG.innerHTML += txtHtmlOfImage().str;
 }
