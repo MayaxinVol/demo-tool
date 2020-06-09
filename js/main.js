@@ -538,9 +538,10 @@ function txtHtmlOfImage() {
     for (let k = 0; k < arrp.length; k++) {
         if ((arrp[k].i === 0) || (arrp[k].i === rows - 1))
         {
-            if ((arrp[k].i === 0) && (H_height[k % cols] > 0)) {
-                str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy - 20}" width="16" height="16" xlink:href="imageDelete.png" />`;
-            } else if ((arrp[k].i === rows - 1) && (H_height[k % cols] > 0)) {
+            // if ((arrp[k].i === 0) && (removedPoints.includes(k) === true) && (H_height[k % cols] > 0)) {
+            //     str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy - 20}" width="16" height="16" xlink:href="imageDelete.png" />`;
+            // } else
+            if ((arrp[k].i === rows - 1) && (H_height[k % cols] > 0)) {
                 str += `<image x="${arrp[k].cx - 6}" y="${arrp[k].cy + 6}" width="16" height="16" xlink:href="imageDelete.png" />`;
             }
 
